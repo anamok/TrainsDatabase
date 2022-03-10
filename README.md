@@ -13,8 +13,8 @@ due 3/18/2022
   • Specification of the Relational Schema in PostgreSQL (i.e., DDL)
   
 ### Updates:
-
-3-10 - S - *Finished a rough draft of the ER diagram. For textual reference please review the following:*
+---
+3-10 - Sam - *Finished a rough draft of the ER diagram. For textual reference please review the following:*
 
 **Entities:** <br>
 note: there are a few areas I'm not quite sure how to represent textually, like algorithm screated using data from other entity attributes. That's something we'll need to look into.
@@ -36,7 +36,7 @@ note: there are a few areas I'm not quite sure how to represent textually, like 
 **Relationships:**
 
 feel free to change any of the verbage.. I'm sure it could be more clear.
-I also still need to add cardinality and participation, but I'm just including the following results from some relationship models I mapped.
+I also still need to add cardinality and participation, but I'm just including the following rough concepts.
 
 - has <RAILLINE, STATION, DISTANCE> 
 Each RAILLINE has many stations with many distances. 
@@ -46,4 +46,9 @@ Each RAILLINE can belong to multiple ROUTES and each ROUTE can traverse multiple
 Each RESERVATION requires a specific schedule, route and train
 - books <PASSENGER, RESERVATION>
 Each passenger books a reservation
-  
+
+
+Please feel free to make any changes as neccessary! There are a lot of factors to consider! :)
+
+---
+
