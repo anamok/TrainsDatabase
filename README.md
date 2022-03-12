@@ -15,6 +15,7 @@ due 3/18/2022
 ### Updates:
 ---
 3-10 - Sam - *Finished a rough draft of the ER diagram. For textual reference please review the following:*
+3-12 - Emma - *Refactored (hopefully for the better) the ER diagram. (More changes to come)*
 
 **Entities:** <br>
 note: there are a few areas I'm not quite sure how to represent textually, like algorithm screated using data from other entity attributes. That's something we'll need to look into.
