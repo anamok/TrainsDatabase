@@ -15,7 +15,7 @@ due 3/18/2022
 ### Updates:
 ---
 3-10 - Sam - *Finished a rough draft of the ER diagram. For textual reference please review the following:*
-3-12 - Emma - *Refactored (hopefully for the better) the ER diagram. (More changes to come)*
+3-12 - Emma - *Refactored the ER diagram (both diagram and textual representation); added participation and cardinality;*
 
 **Entities:** <br>
 note: there are a few areas I'm not quite sure how to represent textually, like algorithm screated using data from other entity attributes. That's something we'll need to look into.
@@ -30,7 +30,8 @@ note: there are a few areas I'm not quite sure how to represent textually, like 
 *Emma: I changed `speed` to `speed_limit`. No other major changes.*<br>
 - ROUTE(<ins>route_ID</ins>, {station_open(station, open)}, depart_station, dest_station)<br>
 *Emma: I added `depart_station` and `dest_station` as two attributes.*<br>
-- SCHEDULE(<ins>RDT</ins>(route, day, time))
+- SCHEDULE(<ins>RDT</ins>(railline, day, time), route)<br>
+*Emma: I added `railline` in the primary key and moved `route` out to be an attribute of its own after our discussion in the afternoon.*<br>
 - TRAIN(<ins>train_ID</ins>, seats, price_mi, top_speed)
 - RESERVATION(<ins>reserv_no</ins>, ticket_no, price, {payments}, balance)<br>
 *Sam: RESERVATION wasn't explicitly stated to be used as an entity, but I think it makes sense based on the future operations required in the project. (See DESCRIPTION OF REQ. OPERATIONS in the project pdf)* <br>
