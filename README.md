@@ -15,7 +15,7 @@ due 3/18/2022
 ### Updates:
 
 3-10 - Sam - *Finished a rough draft of the ER diagram. For textual reference please review the following:* <br>
-3-12 - Emma - *Refactored the ER diagram (both diagram and textual representation); added participation and cardinality;*
+3-12 - Emma - *Refactored the ER diagram (both diagram and textual representation); added participation and cardinality; created SQL script for table creations.*
 
 **Entities:** <br>
 note: there are a few areas I'm not quite sure how to represent textually, like algorithm screated using data from other entity attributes. That's something we'll need to look into.
@@ -27,12 +27,12 @@ note: there are a few areas I'm not quite sure how to represent textually, like 
 *Emma: I changed the primary key for DISTANCE from `station_AB` to `stationA-stationB` to be more representative of how the key is going to be formatted.*<br>
 - RAILLINE(<ins>rail_ID</ins>, {station_dis(stationA, stationB, distance)}, speed_limit)<br>
 *Emma: I changed `speed` to `speed_limit`. No other major changes.*<br>
-- ROUTE(<ins>route_ID</ins>, {station_open(station, open)})<br>
+- ROUTE(<ins>route_ID</ins>, {station_open(station, open)}, depart_station, dest_station)<br>
 *Emma: I added `depart_station` and `dest_station` as two attributes.*<br>
 - SCHEDULE(<ins>RDT</ins>(route, day, time))<br>
 *Emma: I added `railline` in the primary key and moved `route` out to be an attribute of its own after our discussion in the afternoon.*<br>
 - TRAIN(<ins>train_ID</ins>, seats, price_mi, top_speed)
-- RESERVATION(<ins>reserv_no</ins>, ticket_no, price, {payments}, balance)<br>
+- RESERVATION(<ins>reserv_no</ins>, price, {payments}, balance)<br>
 *Sam: RESERVATION wasn't explicitly stated to be used as an entity, but I think it makes sense based on the future operations required in the project. (See DESCRIPTION OF REQ. OPERATIONS in the project pdf)* <br>
 *Emma: Smart move!*<br>
 - PASSENGER(<ins>customer_ID</ins>, first_name, last_name, email, {phone_no}, address)
