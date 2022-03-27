@@ -120,3 +120,13 @@ Each passenger books a reservation. RESERVATIONS cannot exist without a PASSENGE
 Each RAILLINE can belong to multiple ROUTES and each ROUTE can traverse multiple RAILLINES.RAILLINE being partial particiation, as it can exist without being part of a ROUTE; Route being total participation, as it cannot exist without RAILLINE.
 <br>
   
+## Phase 2 - Database Implementation 
+due 4/12/2022
+
+  • Data generation in DML <br>
+  • Implementation of Operations (Queries, Transactions, and Reports) in DML
+  
+### Updates:
+
+3-27 - Emma - *Created schema-v2.txt and sql-v2.sql to get started with our database design improvement; modified the SQL script from Phase 1 based on the data and format in the project sample data. More details please see schema-v2.txt.* <br>
+
