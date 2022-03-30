@@ -140,9 +140,9 @@ After reviewing the updated sql text, I want to say you did a great job incorpor
 - For everything else that seemed like superfluous information that wasn't included in the data sets, I agree that we can probably remove them.
 
 Right now, what we have left is: <br>
-1- format the DML generation program to include 'these things' ('') whatever those things are called that determine the string type in VALUES. Since the generation program is a mess, I can work on this. <br>
-2- verify the sql file properties match the DML generation. I attempted to format the attribute names in the data generation program to match the sql file, but it could be better. I was learning as I worked through the file so I discovered some methods later in the code that could have been helpful sooner. <br>
-3- run the updated sql file in datagrip <br>
-4- connect the generated strings to the call to st.executeUpdate(string); <br>
+1. format the DML generation program to include 'these things' ('') whatever those things are called that determine the string type in VALUES. Since the generation program is a mess, I can work on this. <br>
+2. verify the sql file properties match the DML generation. I attempted to format the attribute names in the data generation program to match the sql file, but it could be better. I was learning as I worked through the file so I discovered some methods later in the code that could have been helpful sooner. <br>
+3. run the updated sql file in datagrip <br>
+4. connect the generated strings to the call to st.executeUpdate(string); <br>
 5. run the program and test for bugs in the data population <br>
 6. Implement queries/transactions/reports <br>
