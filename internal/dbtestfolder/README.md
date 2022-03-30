@@ -12,5 +12,3 @@ I was able to run the program using the commands:<br>
 It's a bit of a mess, so if you notice any coding logic that could be better achieved using another method, feel free to update! I just wanted to get the basic INSERT statements out of the way.
 
 Thanks!! <3
-
-PS- I also just noticed, the ID names in a bunch of the insert statements should be tableName + "ID" but there's a bug somewhere I need to track down. Sorry!
