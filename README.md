@@ -129,13 +129,20 @@ due 4/12/2022
 ### Updates:
 
 3-27 - Emma - *Created schema-v2.txt and sql-v2.sql to get started with our database design improvement; modified the SQL script from Phase 1 based on the data and format in the project sample data. More details please see schema-v2.txt.* <br>
-3-29 - Sam - *Reviewed changes and created an updated diagram*
+3-29 - Sam - *Reviewed changes and created an updated diagram, added insertdata.java for DML generation*
+3-30 - Sam - *small updates*
 
 3-29 Notes/Thoughts:
 After reviewing the updated sql text, I want to say you did a great job incorporating all of the new information with splitting the many-to-many relationships with consideration to the data provided! It's almost exactly what I had in mind. I do have a few questions though that I'd like to discuss.. I didn't change the sql file yet but I can if you agree to the ideas. 
-- I don't know if it's nitpicky and I'm trying to work out what it would look like, but for Line_Include, would it be better to use the stationAtoB key from distance to populate? Or should we have individual stations? I have station_AB on the diagram, but I will update if it will hinder us or cause redundant information. 
-- Under Route, I agree that we do not need the depart/destination station. However, I do think that we should include the starting station of the RAILLINE which is referenced in the data as a stop with 0 distance. I honestly do not know if we'll need this information long term, but until we begin working on the operations and learn which information we will need, it might be a good idea just to have.
+~~- I don't know if it's nitpicky and I'm trying to work out what it would look like, but for Line_Include, would it be better to use the stationAtoB key from distance to populate? Or should we have individual stations? I have station_AB on the diagram, but I will update if it will hinder us or cause redundant information.~~ Nevermind. Writing the data generation program helped me realize using both station_A and station_B in Line_Inlcude was the better option.
+~~- Under Route, I agree that we do not need the depart/destination station. However, I do think that we should include the starting station of the RAILLINE which is referenced in the data as a stop with 0 distance. I honestly do not know if we'll need this information long term, but until we begin working on the operations and learn which information we will need, it might be a good idea just to have.~~ Honestly, I didn't code this either. I have a variable with this information in the java generation file, but never created an insert statement for it, if we want, we can add it.. otherwise there doesn't seem to be a good reason.
 - While its not a big deal, I wonder if ticket_no would be easier to include in RESERVATION. I'm thinking when the balance hits 0, we can easily generate a unique ticket number without having to reference another table. It seems less complicated than referencing the ticket table where reservationnumber = reservationnumber.
 - For everything else that seemed like superfluous information that wasn't included in the data sets, I agree that we can probably remove them.
 
-Thanks for all of your work! These updates were brain teasers!! 
+Right now, what we have left is: <br>
+1- format the DML generation program to include 'these things' ('') whatever those things are called that determine the string type in VALUES. Since the generation program is a mess, I can work on this. <br>
+2- verify the sql file properties match the DML generation. I attempted to format the attribute names in the data generation program to match the sql file, but it could be better. I was learning as I worked through the file so I discovered some methods later in the code that could have been helpful sooner. <br>
+3- run the updated sql file in datagrip <br>
+4- connect the generated strings to the call to st.executeUpdate(string);
+5. run the program and test for bugs in the data population
+6. Implement queries/transactions/reports
