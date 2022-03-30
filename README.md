@@ -129,7 +129,7 @@ due 4/12/2022
 ### Updates:
 
 3-27 - Emma - *Created schema-v2.txt and sql-v2.sql to get started with our database design improvement; modified the SQL script from Phase 1 based on the data and format in the project sample data. More details please see schema-v2.txt.* <br>
-3-29 - Sam - *Reviewed changes and created an updated diagram, added insertdata.java for DML generation*
+3-29 - Sam - *Reviewed changes and created an updated diagram, added insertdata.java for DML generation* <br>
 3-30 - Sam - *small updates*
 
 3-29 Notes/Thoughts:
