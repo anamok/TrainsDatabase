@@ -91,6 +91,7 @@ public class InsertData {
 									changeIDName = changeIDName.deleteCharAt(changeIDName.length()-1);
 									changeIDName = changeIDName.append(a);
 									a = changeIDName.toString();
+									attributeNames[0] = a;
 									
 								}
 								
