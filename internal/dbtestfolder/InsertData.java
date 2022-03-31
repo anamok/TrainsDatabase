@@ -24,7 +24,7 @@ public class InsertData {
 		String attributeReturnString = null;
 		
 		//parse file
-		String file = "AllData.txt";
+		String file = "internal/dbtestfolder/AllData.txt";
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 		
 		String currentLine;
@@ -92,19 +92,23 @@ public class InsertData {
 									StringBuilder changeIDName = new StringBuilder();
 									changeIDName = changeIDName.append(tableName.toLowerCase());
 									changeIDName = changeIDName.deleteCharAt(changeIDName.length()-1);
-									changeIDName = changeIDName.append(a);
+									changeIDName = changeIDName.append("_id");
 									a = changeIDName.toString();
 									attributeNames[0] = a;
 									//System.out.println("a: " + a);
 								}
-								
 							}
 							
 							//make string with all attributes separated by a comma
 							StringBuilder attributeStringBuilder = new StringBuilder();
 							
 							for (String a: attributeNames) {
-								attributeStringBuilder.append(a);
+								if (a.equals("speed_(km/h)")) {
+									attributeStringBuilder.append("top_speed"); // a special case for TRAIN
+								}
+								else {
+									attributeStringBuilder.append(a);
+								}
 								attributeStringBuilder.append(", ");
 							}
 							
@@ -275,7 +279,7 @@ public class InsertData {
 								
 								
 								StringBuilder insertStatementLineInclude = new StringBuilder();
-								insertStatementLineInclude.append("INSERT INTO Line_Include (station_a, station_b, rail_id) VALUES (");
+								insertStatementLineInclude.append("INSERT INTO LineInclude (station_a, station_b, line_id) VALUES (");
 								insertStatementLineInclude.append(stationA);
 								insertStatementLineInclude.append(", ");
 								insertStatementLineInclude.append(stationB);
@@ -386,8 +390,6 @@ public class InsertData {
 		}
 		
 		bufferedReader.close();
-		
-		
 		
 		/*
         try {
