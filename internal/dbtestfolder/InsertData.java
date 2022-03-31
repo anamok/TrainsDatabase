@@ -151,7 +151,8 @@ public class InsertData {
 							insertStatementRoute.append(routeNumber);
 							insertStatementRoute.append(");");
 							
-							// System.out.println(insertStatementRoute); //////////////////////////////////////////////////INSERT STATEMENT
+							System.out.println(insertStatementRoute); //////////////////////////////////////////////////INSERT STATEMENT
+							
 							try {
 								st.executeUpdate(insertStatementRoute.toString());	
 							}
@@ -203,7 +204,8 @@ public class InsertData {
 								insertStatementRouteInclude.append(isStop);
 								insertStatementRouteInclude.append(");");
 								
-								// System.out.println(insertStatementRouteInclude); /////////////////////////////////////////////INSERT STATEMENT
+								System.out.println(insertStatementRouteInclude); /////////////////////////////////////////////INSERT STATEMENT
+								
 								try {
 									st.executeUpdate(insertStatementRouteInclude.toString());
 								}
@@ -244,7 +246,8 @@ public class InsertData {
 							insertStatementRR.append(rrLineInfoString);
 							insertStatementRR.append(";");
 							
-							// System.out.println(insertStatementRR); /////////////////////////////////////////INSERT STATEMENT
+							System.out.println(insertStatementRR); /////////////////////////////////////////INSERT STATEMENT
+							
 							try {
 								st.executeUpdate(insertStatementRR.toString());
 							}
@@ -293,7 +296,8 @@ public class InsertData {
 								insertStatementDistances.append(distance);
 								insertStatementDistances.append(");");
 								
-								// System.out.println(insertStatementDistances); ////////////////////////////////////////////INSERT STATEMENT
+								System.out.println(insertStatementDistances); ////////////////////////////////////////////INSERT STATEMENT
+								
 								try {
 									st.executeUpdate(insertStatementDistances.toString());
 								}
@@ -311,7 +315,8 @@ public class InsertData {
 								insertStatementLineInclude.append(lineID);
 								insertStatementLineInclude.append(");");
 								
-								// System.out.println(insertStatementLineInclude); //////////////////////////////////////////////INSERT STATEMENT
+								System.out.println(insertStatementLineInclude); //////////////////////////////////////////////INSERT STATEMENT
+								
 								try {
 									st.executeUpdate(insertStatementLineInclude.toString());
 								}
@@ -402,7 +407,8 @@ public class InsertData {
 						insertStatement.append(dataString);
 						insertStatement.append(");");
 						
-						// System.out.println(insertStatement); ////////////////////////////////////////////////INSERTSTATEMENT
+						System.out.println(insertStatement); ////////////////////////////////////////////////INSERTSTATEMENT
+						
 						try {
 							st.executeUpdate(insertStatement.toString());
 						}

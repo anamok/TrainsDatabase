@@ -130,7 +130,8 @@ due 4/12/2022
 
 3-27 - Emma - *Created schema-v2.txt and sql-v2.sql to get started with our database design improvement; modified the SQL script from Phase 1 based on the data and format in the project sample data. More details please see schema-v2.txt.* <br>
 3-29 - Sam - *Reviewed changes and created an updated diagram, added insertdata.java for DML generation* <br>
-3-30 - Sam - *small updates*
+3-30 - Sam - *small updates* <br>
+3-31 - Emma - *1) Attributes consistency: changed some naming in the SQL file and a tiny bit of code in JAVA file to match the attribute names in the tables and in the insert statement; 2) Converted the printting of insert statements to actually executing them in the JAVA file; 3) Verified that the insert statements were executed successfully and data were being populated into the tables; 4) Verified the data in the tables match with the allData.txt, that they are complete and correct for each table.* <br>
 
 3-29 Notes/Thoughts:
 After reviewing the updated sql text, I want to say you did a great job incorporating all of the new information with splitting the many-to-many relationships with consideration to the data provided! It's almost exactly what I had in mind. I do have a few questions though that I'd like to discuss.. I didn't change the sql file yet but I can if you agree to the ideas. <br>
@@ -140,10 +141,21 @@ After reviewing the updated sql text, I want to say you did a great job incorpor
 - While its not a big deal, I wonder if ticket_no would be easier to include in RESERVATION. I'm thinking when the balance hits 0, we can easily generate a unique ticket number without having to reference another table. It seems less complicated than referencing the ticket table where reservationnumber = reservationnumber.
 - For everything else that seemed like superfluous information that wasn't included in the data sets, I agree that we can probably remove them.
 
+3-31 Notes/Thoughts:
+For adding a starting station in Railroad_Lines to account for the 0 distance: At first sight I do agree with you! That it seemed intuitive to preserve the input data as much as possible in our table. However, after running the execution of the insert statements and inspecting how the data are organized in Distance, which LineInclude uses to keep track of the distance between station_a and station_b, I realized it's not necessary to add a 0 distance for us to capture the information completely. I recommend taking a loot at LineInclude and Distance after populating the table, and you will know what I mean! ;-P
+
+I like the idea of linking the ticket number to a reservation! I think we will get a better feel of how this is going to help us when we implement the queries, transactions, etc.. If you spot the need for it please go ahead! So far at the data population stage, since there's no data associated with reservations and tickets, it's a bit difficult to say for sure. We will cross the bridge when we get there!
+
+I also removed some comments (the not important ones) in the SQL file that everyone has prob read, so the SQL file looks a bit cleaner.
+
+Some SQL commands is added at the end of the SQL file to make it easy for you to verify data population and actually get to see the data inserted into the tables.
+
+After my modification, the JAVA file still prints out the INSERT statements it generates as before, but these INSERT statements are also being executed. Feel free to compare the console and DataGrip to confirm that the table population is working as expected!
+
 Right now, what we have left is: <br>
 1. ~~format the DML generation program to include 'these things' ('') whatever those things are called that determine the string type in VALUES. Since the generation program is a mess, I can work on this.~~ (done) <br>
-2. verify the sql file properties match the DML generation. I attempted to format the attribute names in the data generation program to match the sql file, but it could be better. I was learning as I worked through the file so I discovered some methods later in the code that could have been helpful sooner. <br>
-3. run the updated sql file in datagrip <br>
-4. connect the generated strings to the call to st.executeUpdate(string); <br>
-5. run the program and test for bugs in the data population <br>
+2. verify the sql file properties match the DML generation. I attempted to format the attribute names in the data generation program to match the sql file, but it could be better. I was learning as I worked through the file so I discovered some methods later in the code that could have been helpful sooner. (done) <br>
+3. run the updated sql file in datagrip (done) <br>
+4. connect the generated strings to the call to st.executeUpdate(string); (done) <br>
+5. run the program and test for bugs in the data population (done) <br>
 6. Implement queries/transactions/reports <br>
