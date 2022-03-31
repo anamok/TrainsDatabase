@@ -151,7 +151,14 @@ public class InsertData {
 							insertStatementRoute.append(routeNumber);
 							insertStatementRoute.append(");");
 							
-							System.out.println(insertStatementRoute); //////////////////////////////////////////////////INSERT STATEMENT
+							// System.out.println(insertStatementRoute); //////////////////////////////////////////////////INSERT STATEMENT
+							try {
+								st.executeUpdate(insertStatementRoute.toString());	
+							}
+							catch (SQLException e) {
+								System.out.println(e.toString());
+							}
+							
 						
 							String[] tmpStationStopsData = tmpRouteStopsData[1].split("Stops:");
 
@@ -196,8 +203,13 @@ public class InsertData {
 								insertStatementRouteInclude.append(isStop);
 								insertStatementRouteInclude.append(");");
 								
-								System.out.println(insertStatementRouteInclude); /////////////////////////////////////////////INSERT STATEMENT
-								
+								// System.out.println(insertStatementRouteInclude); /////////////////////////////////////////////INSERT STATEMENT
+								try {
+									st.executeUpdate(insertStatementRouteInclude.toString());
+								}
+								catch (SQLException e) {
+									System.out.println(e.toString());
+								}
 								
 							}
 								
@@ -232,7 +244,13 @@ public class InsertData {
 							insertStatementRR.append(rrLineInfoString);
 							insertStatementRR.append(";");
 							
-							System.out.println(insertStatementRR); /////////////////////////////////////////INSERT STATEMENT
+							// System.out.println(insertStatementRR); /////////////////////////////////////////INSERT STATEMENT
+							try {
+								st.executeUpdate(insertStatementRR.toString());
+							}
+							catch (SQLException e) {
+								System.out.println(e.toString());
+							}
 							
 							
 							String[] tmpStationDistances = tmpRRLineData[1].split("Distances:"); //tmpStationDistances[0] = Stations; tmpStationDistances[1] = Distances
@@ -275,7 +293,13 @@ public class InsertData {
 								insertStatementDistances.append(distance);
 								insertStatementDistances.append(");");
 								
-								System.out.println(insertStatementDistances); ////////////////////////////////////////////INSERT STATEMENT
+								// System.out.println(insertStatementDistances); ////////////////////////////////////////////INSERT STATEMENT
+								try {
+									st.executeUpdate(insertStatementDistances.toString());
+								}
+								catch (SQLException e) {
+									System.out.println(e.toString());
+								}
 								
 								
 								StringBuilder insertStatementLineInclude = new StringBuilder();
@@ -287,7 +311,13 @@ public class InsertData {
 								insertStatementLineInclude.append(lineID);
 								insertStatementLineInclude.append(");");
 								
-								System.out.println(insertStatementLineInclude); //////////////////////////////////////////////INSERT STATEMENT
+								// System.out.println(insertStatementLineInclude); //////////////////////////////////////////////INSERT STATEMENT
+								try {
+									st.executeUpdate(insertStatementLineInclude.toString());
+								}
+								catch (SQLException e) {
+									System.out.println(e.toString());
+								}
 								
 							}
 							
@@ -372,7 +402,13 @@ public class InsertData {
 						insertStatement.append(dataString);
 						insertStatement.append(");");
 						
-						System.out.println(insertStatement); ////////////////////////////////////////////////INSERTSTATEMENT
+						// System.out.println(insertStatement); ////////////////////////////////////////////////INSERTSTATEMENT
+						try {
+							st.executeUpdate(insertStatement.toString());
+						}
+						catch (SQLException e) {
+								System.out.println(e.toString());
+						}
 						
 					}
 					
@@ -406,6 +442,6 @@ public class InsertData {
         }
 		*/
 
-
     }
+
 }

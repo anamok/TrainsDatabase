@@ -142,3 +142,17 @@ CREATE TABLE Tickets (
     CONSTRAINT Tickets_FK_Reserv FOREIGN KEY(reserv_no) REFERENCES Reservations(reserv_no)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+-- code added to verify table data population:
+-- SELECT * FROM Stations;
+-- SELECT * FROM Distance;
+-- SELECT * FROM Railroad_lines;
+-- SELECT * FROM LineInclude;
+-- SELECT * FROM Routes;
+-- SELECT * FROM RouteInclude;
+-- SELECT * FROM Trains;
+-- SELECT * FROM Route_Schedules;
+-- SELECT * FROM Reservations;
+-- SELECT * FROM Customers;
+-- SELECT * FROM Clock;
+-- SELECT * FROM Tickets;
