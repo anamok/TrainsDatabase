@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS Stations, Distance, Railroad_lines, LineInclude, Routes, RouteInclude,
-    Trains, Route_Schedules, Reservations, Customers, Clock, Tickets CASCADE;
+    Trains, Route_Schedules, Reservations, Customers, Clock, Tickets, Users CASCADE;
 
 CREATE TABLE Stations (
     station_id INTEGER,
@@ -77,7 +77,7 @@ CREATE TABLE RouteInclude (
         ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT RouteInclude_FK_Station FOREIGN KEY(station_id) REFERENCES Stations(station_id)
         ON UPDATE CASCADE ON DELETE CASCADE
-)
+);
 
 CREATE TABLE Trains ( -- moved train creation above schedule bc schedule now requires a train number
     train_id INTEGER,
@@ -124,7 +124,6 @@ CREATE TABLE Customers (
     town VARCHAR(32),
     postalcode VARCHAR(32),
 
-
     CONSTRAINT Customers_PK PRIMARY KEY(customer_id)
 );
 
@@ -143,6 +142,11 @@ CREATE TABLE Tickets (
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE Users (
+    username VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(50) NOT NULL
+);
+
 -- code added to verify table data population:
 -- SELECT * FROM Stations;
 -- SELECT * FROM Distance;
@@ -156,3 +160,4 @@ CREATE TABLE Tickets (
 -- SELECT * FROM Customers;
 -- SELECT * FROM Clock;
 -- SELECT * FROM Tickets;
+-- SELECT * FROM Users;
