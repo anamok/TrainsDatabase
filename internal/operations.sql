@@ -6,9 +6,6 @@
 
 -- A - Program Logistical Operations
 
--- 1) Insert my credential into USERS table
-INSERT INTO Users (username, password) VALUES ('postgres', '@LQNlqn19981024');
-
 -- B - Passenger Service Operations
 
 -- 1) Update Customer List
@@ -53,7 +50,7 @@ $$ LANGUAGE plpgsql;
 
 -- 1.3) view_customer()
 -- Receives a customer_id and returns his information.
-CREATE OR REPLACE FUNCTION view_customer (customer_id INTEGER)
+CREATE OR REPLACE FUNCTION view_customer (cust_id INTEGER)
 RETURNS TABLE (customer_id INTEGER, first_name VARCHAR(32),
                last_name VARCHAR(32), street VARCHAR(32),
                town VARCHAR(32), postalcode VARCHAR(32))
@@ -61,7 +58,7 @@ AS $$
     BEGIN
         RETURN QUERY
             SELECT * FROM Customers
-            WHERE customer_id = Customers.customer_id;
+            WHERE cust_id = Customers.customer_id;
     END;
 $$ LANGUAGE plpgsql;
 
