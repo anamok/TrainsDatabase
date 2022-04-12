@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS Stations, Distance, Railroad_lines, LineInclude, Routes, RouteInclude,
-    Trains, Route_Schedules, Reservations, Customers, Clock, Tickets CASCADE;
+    Trains, Route_Schedules, Reservations, Customers, Clock, Tickets, Railroad_lines CASCADE;
+-- added the missing Railroad_lines table
 
 CREATE TABLE Stations (
     station_id INTEGER,
@@ -124,7 +125,7 @@ CREATE TABLE Reservations (
 );
 
 -- changed the name from 'Passenger' to 'Customer' for consistency
-DROP TABLE if exists Customers;
+DROP TABLE IF EXISTS Customers;
 CREATE TABLE Customers (
     customer_id SERIAL,
     first_name VARCHAR(32),
@@ -145,7 +146,7 @@ CREATE TABLE Clock (
     CONSTRAINT Clock_PK PRIMARY KEY(p_date)
 );
 
-drop table if exists Tickets;
+DROP TABLE IF EXISTS Tickets;
 CREATE TABLE Tickets (
     ticket_no SERIAL,
     reserv_no INTEGER,
@@ -154,3 +155,4 @@ CREATE TABLE Tickets (
 --    CONSTRAINT Tickets_FK_Reserv FOREIGN KEY(reserv_no) REFERENCES Reservations(reserv_no)
 --       ON UPDATE CASCADE ON DELETE CASCADE
 );
+

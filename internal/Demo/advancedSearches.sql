@@ -114,13 +114,47 @@ SELECT * FROM comboMatch;
 
 -- advanced search a
 -- find all TRAINS that pass through a specific station at a specific day/time combination
+DROP VIEW route_day;
+CREATE VIEW route_day AS
+    SELECT routeid, train_id
+    FROM route_schedules
+    WHERE day = 'Tuesday' AND time = '00:01:00';
 
+DROP VIEW search_station_day;
+CREATE VIEW search_station_day AS
+    SELECT DISTINCT train_id
+    FROM route_day NATURAL JOIN routeinclude
+    WHERE route_day.routeid = routeinclude.route_id;
+
+SELECT * FROM search_station_day;
 
 -- advanced search b
 -- find the routes that travel more than one railline
+-- not done yet
+DROP VIEW route_railline;
+CREATE VIEW route_railline AS
+    SELECT line_id, station_a AS station
+    FROM lineinclude
+    UNION ALL
+    SELECT line_id, station_b AS station
+    FROM lineinclude;
+
+SELECT * FROM route_railline;
 
 -- advanced search c
 -- rank the trains that are scheduled for more than one route
+-- not done yet
+DROP VIEW train_route_count CASCADE;
+CREATE VIEW train_route_count AS
+    SELECT train_id, COUNT(routeid) as count
+    FROM route_schedules
+    GROUP BY train_id
+
+DROP VIEW search_train_route_rank;
+CREATE VIEW search_train_route_rank AS
+    SELECT train_id, RANK() OVER (ORDER BY count DESC) AS rank
+    FROM train_route_count
+SELECT * FROM search_train_route_rank;
 
 -- advanced search d
 -- find the routes that pass through the same stations but dont have the same stops

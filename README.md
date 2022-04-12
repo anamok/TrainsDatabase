@@ -18,6 +18,7 @@ due 3/18/2022
 3-12 - Emma - *Refactored the ER diagram (both diagram and textual representation); added participation and cardinality; created SQL script for table creations.* <br>
 3-13 - Sam - *Made minor adjustments to ER diagram and updated README with my thoughts; Will need to save image of diagram to designated folder(as opposed to the code format required for editing in draw.io).* <br>
 3-16 - Emma - *Exported draw.io as PDF, pushed a git commit, created a zip file, and sent an email for submission purposes.* <br>
+4-12 - Anastasia - *Submitted a rough draft of my part of the advanced searches and ran through the testing process.* <br>
 
 **Entities:** <br>
 note: there are a few areas I'm not quite sure how to represent textually, like algorithm screated using data from other entity attributes. That's something we'll need to look into.
