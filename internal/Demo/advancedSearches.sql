@@ -162,13 +162,34 @@ SELECT * FROM search_train_route_rank;
 -- advanced search e
 -- find any stations through which all trains pass through
 
+DROP VIEW trains_and_stations;
+CREATE VIEW trains_and_stations AS
+    SELECT station_id, train_id
+    FROM Route_Schedules, RouteInclude;
+
+DROP VIEW all_trains;
+CREATE VIEW all_trains AS
+    SELECT train_id FROM Trains;
+
+DROP VIEW stations_passed_by_all_trains;
+CREATE VIEW stations_passed_by_all_trains AS
+    SELECT * FROM trains_and_stations AS x
+    WHERE NOT EXISTS (
+        (SELECT y.train_id FROM all_trains AS y)
+        EXCEPT
+        (SELECT z.train_id FROM trains_and_stations AS z
+            WHERE z.station_id = x.station_id)
+        );
+
+-- this line takes forever to run, might need to check the logic of the view above
+SELECT DISTINCT station_id FROM stations_passed_by_all_trains;
+
 -- advanced search f
 -- find all trains that do not stop at a specific station
 
 -- (this is kind of weird one... i've tried to more than 10 random stations, and with
 -- each station there will always be 350 DISTINCT trains stopped at it, therefore the
--- set difference always returns an empty set. however, the logic should be correct in
--- my humble opinion...)
+-- set difference always returns an empty set)
 
 -- trains that DO stop at station 25
 DROP VIEW trains_do_stop;
@@ -187,10 +208,15 @@ EXCEPT
 -- stations from which they pass (eg route passing through 10 stops will stop at 5 will
 -- be returned as a result of a 50% search
 
+-- need help with this one...
+SELECT * FROM RouteInclude;
+SELECT count(station_id) FROM RouteInclude WHERE route_id = 22;
+SELECT count(station_id) FROM RouteInclude WHERE route_id = 22 AND stop = TRUE;
+
+
 -- display the schedule of a route
 -- for a specific route, list the days of departure, departure hours and trains that run it
-SELECT *
-    FROM Route_Schedules
+SELECT * FROM Route_Schedules
     WHERE routeid = 590;
 
 -- advanced search i
