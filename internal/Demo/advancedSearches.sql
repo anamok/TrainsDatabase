@@ -131,6 +131,23 @@ SELECT * FROM comboMatch;
 -- advanced search f
 -- find all trains that do not stop at a specific station
 
+-- (this is kind of weird one... i've tried to more than 10 random stations, and with
+-- each station there will always be 350 DISTINCT trains stopped at it, therefore the
+-- set difference always returns an empty set. however, the logic should be correct in
+-- my humble opinion...)
+
+-- trains that DO stop at station 25
+DROP VIEW trains_do_stop;
+CREATE VIEW trains_do_stop AS
+    SELECT DISTINCT train_id
+    FROM Route_Schedules, RouteInclude
+    WHERE station_id = 25
+      AND stop = TRUE;
+-- all_trains - trains_do_stop
+(SELECT train_id FROM Trains)
+EXCEPT
+(SELECT DISTINCT train_id FROM trains_do_stop);
+
 -- advanced search g
 -- find routes where they stop at least xx% (where xx is a number from 10-90) of the
 -- stations from which they pass (eg route passing through 10 stops will stop at 5 will
@@ -138,7 +155,15 @@ SELECT * FROM comboMatch;
 
 -- display the schedule of a route
 -- for a specific route, list the days of departure, departure hours and trains that run it
+SELECT *
+    FROM Route_Schedules
+    WHERE routeid = 590;
 
 -- advanced search i
 -- find the availability of a route at every stop on a specific day and time
+SELECT route_id, station_id, day, time
+    FROM Route_Schedules, RouteInclude
+    WHERE Route_Schedules.routeid = 376
+      AND RouteInclude.route_id = 376
+      AND RouteInclude.stop = TRUE;
 
