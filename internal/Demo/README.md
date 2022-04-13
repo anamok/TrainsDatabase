@@ -26,3 +26,15 @@ I have my jar file in many places. I don't think it matters at all as long as it
 If you have any questions or need help figuring out how to run this on your machine, let me know!
 
 -Sam
+
+
+4/13 Updates 
+
+Added UpdateReservation and EditCustomer demonstrations, and created a make file
+
+I'm not sure if calling a makefile is different on a mac.. I had to download chocolatey so that Windows would recognize the command. make is default in Linux, and is HOPEFULLY default on your machines too :)
+using the makefile, you can now call 'make' in the root directory, Demo, instead of calling javac -cp "postgresql-42.2.18.jar;." dbpack/CostaExpress.java for each one of the classes. Then, you just run the program using java -cp "postgresql-42.2.18.jar;." dbpack/CostaExpress as normal
+
+It's not a big deal for you guys now, but when I was working through the code initially, VScode would save code but not update the .class file, so when I would run the code from the command prompt, the changes weren't saving and I had to run javac -cp "postgresql-42.2.18.jar;." dbpack/CostaExpress.java for each .java file that I updated. If you encounter an issue where the updates arent reflecting on your program when entered with the command prompt, this is probably why 
+
+-Sam
