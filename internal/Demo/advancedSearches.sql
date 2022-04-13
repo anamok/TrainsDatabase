@@ -114,54 +114,71 @@ SELECT * FROM comboMatch;
 
 -- advanced search a
 -- find all TRAINS that pass through a specific station at a specific day/time combination
-DROP VIEW route_day;
-CREATE VIEW route_day AS
-    SELECT routeid, train_id
-    FROM route_schedules
-    WHERE day = 'Tuesday' AND time = '00:01:00';
-
 DROP VIEW search_station_day;
 CREATE VIEW search_station_day AS
-    SELECT DISTINCT train_id
-    FROM route_day NATURAL JOIN routeinclude
-    WHERE route_day.routeid = routeinclude.route_id;
-
+    SELECT DISTINCT train_id, route_id
+    FROM route_schedules NATURAL JOIN routeinclude
+    WHERE route_schedules.day = 'Tuesday' AND route_schedules.time = '00:01:00'
+        AND route_schedules.routeid = routeinclude.route_id
+        AND routeinclude.station_id = '4';
 SELECT * FROM search_station_day;
 
 -- advanced search b
 -- find the routes that travel more than one railline
--- not done yet
-DROP VIEW route_railline;
+DROP VIEW route_railline CASCADE;
+-- all stations associated with each line
 CREATE VIEW route_railline AS
     SELECT line_id, station_a AS station
     FROM lineinclude
-    UNION ALL
+    UNION
     SELECT line_id, station_b AS station
     FROM lineinclude;
 
-SELECT * FROM route_railline;
+DROP VIEW search_routes_over_multiple_lines;
+CREATE VIEW search_routes_over_multiple_lines AS
+    SELECT route_id
+    FROM (
+        SELECT route_id, COUNT(DISTINCT line_id) AS count
+        FROM (
+            SELECT line_id, route_id
+            FROM route_railline LEFT OUTER JOIN routeinclude ON route_railline.station = routeinclude.station_id
+            ORDER BY line_id ASC, route_id ASC) B
+        GROUP BY route_id
+        HAVING COUNT(DISTINCT line_id) > 1
+        ORDER BY route_id ASC, count ASC) A;
+SELECT * FROM search_routes_over_multiple_lines;
+
 
 -- advanced search c
 -- rank the trains that are scheduled for more than one route
--- not done yet
-DROP VIEW train_route_count CASCADE;
-CREATE VIEW train_route_count AS
-    SELECT train_id, COUNT(routeid) as count
-    FROM route_schedules
-    GROUP BY train_id
-
+-- ranking seems weird, but is correct: there are 290 trains that are scheduled for 6
+-- routes, so the remaining trains with 5 scheduled routes are ranked 291st, the rest are scheduled for 1
 DROP VIEW search_train_route_rank;
 CREATE VIEW search_train_route_rank AS
     SELECT train_id, RANK() OVER (ORDER BY count DESC) AS rank
-    FROM train_route_count
+    FROM (
+        SELECT train_id, COUNT(routeid) as count
+        FROM route_schedules
+        GROUP BY train_id) A
+    ORDER BY rank ASC, train_id ASC;
 SELECT * FROM search_train_route_rank;
 
 -- advanced search d
 -- find the routes that pass through the same stations but dont have the same stops
+-- takes 3s on my device, need to check logic
+DROP VIEW search_same_stations_dif_stops;
+CREATE VIEW search_same_stations_dif_stops AS
+    SELECT DISTINCT a.route_id
+    FROM routeinclude a JOIN routeinclude b ON a.route_id = b.route_id
+    WHERE a.station_id = b.station_id AND EXISTS (
+        SELECT DISTINCT c.route_id
+        FROM routeinclude c JOIN routeinclude b ON a.route_id = b.route_id
+        WHERE c.stop != b.stop AND a.route_id = c.route_id)
+    ORDER BY a.route_id ASC;
+SELECT * FROM search_same_stations_dif_stops;
 
 -- advanced search e
 -- find any stations through which all trains pass through
-
 DROP VIEW trains_and_stations;
 CREATE VIEW trains_and_stations AS
     SELECT station_id, train_id
@@ -226,4 +243,3 @@ SELECT route_id, station_id, day, time
     WHERE Route_Schedules.routeid = 376
       AND RouteInclude.route_id = 376
       AND RouteInclude.stop = TRUE;
-
