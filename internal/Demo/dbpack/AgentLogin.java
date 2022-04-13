@@ -31,7 +31,7 @@ public class AgentLogin extends JFrame implements ActionListener {
         agentLoginp.setBackground(Color.BLACK);
 
         JLabel loginMessage = new JLabel("Agent Login", SwingConstants.CENTER);
-        loginMessage.setFont(new Font("Courier", Font.BOLD, 30));
+        loginMessage.setFont(new Font("Courier New", Font.BOLD, 30));
         loginMessage.setForeground(Color.WHITE);
         //loginMessage.setVerticalAlignment(SwingConstants.TOP);
 
@@ -43,12 +43,12 @@ public class AgentLogin extends JFrame implements ActionListener {
         submitButton.setForeground(Color.WHITE);
         submitButton.setBackground(Color.BLACK);
         submitButton.setBorder(new LineBorder(Color.WHITE));
-        submitButton.setFont(new Font("Courier", Font.BOLD, 18));
+        submitButton.setFont(new Font("Courier New", Font.BOLD, 18));
 
         returnButton.setForeground(Color.WHITE);
         returnButton.setBackground(Color.BLACK);
         returnButton.setBorder(new LineBorder(Color.WHITE));
-        returnButton.setFont(new Font("Courier", Font.BOLD, 18));
+        returnButton.setFont(new Font("Courier New", Font.BOLD, 18));
 
         try{
             BufferedImage userImage = ImageIO.read(new File("user-01-01.png"));
@@ -86,20 +86,20 @@ public class AgentLogin extends JFrame implements ActionListener {
 
         userID = new JTextField(""); ////////////userid field
         userID.setBackground(Color.BLACK);
-        userID.setFont(new Font("Courier", Font.BOLD, 18));
+        userID.setFont(new Font("Courier New", Font.BOLD, 18));
         userID.setForeground(Color.WHITE);
 
         password = new JPasswordField(); ///////password field
         password.setBackground(Color.BLACK);
-        password.setFont(new Font("Courier", Font.BOLD, 18));
+        password.setFont(new Font("Courier New", Font.BOLD, 18));
         password.setForeground(Color.WHITE);
 
         JLabel userMessage = new JLabel("Username: ", SwingConstants.RIGHT);
-        userMessage.setFont(new Font("Courier", Font.BOLD, 20));
+        userMessage.setFont(new Font("Courier New", Font.BOLD, 20));
         userMessage.setForeground(Color.WHITE);
 
         JLabel passwordMessage = new JLabel("Password: ", SwingConstants.RIGHT);
-        passwordMessage.setFont(new Font("Courier", Font.BOLD, 20));
+        passwordMessage.setFont(new Font("Courier New", Font.BOLD, 20));
         passwordMessage.setForeground(Color.WHITE);
 
         formMenu.add(squish);
