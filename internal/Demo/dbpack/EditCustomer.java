@@ -26,7 +26,7 @@ import java.io.*;
 public class EditCustomer extends JFrame implements ActionListener { 
     
     // the following is just a blank square in the CENTER of the screen.
-    // set the color to another color on line 70 and re-run the program if you want to see it.
+    // set the color to another color on line 73 and re-run the program if you want to see it.
     JPanel editCenter = new JPanel(new GridLayout(0,1));
 
     JPanel guiPush; // panel created in Costa Express that covers the ENTIRE screen which
