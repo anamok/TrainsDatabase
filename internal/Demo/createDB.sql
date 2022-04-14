@@ -141,7 +141,7 @@ CREATE TABLE Customers (
 );
 
 CREATE TABLE Clock (
-    p_date DATE,
+    p_date TIMESTAMP,
 
     CONSTRAINT Clock_PK PRIMARY KEY(p_date)
 );

@@ -6,7 +6,7 @@ CREATE TABLE Stations (
     name VARCHAR(32),
     opening_time TIME, -- format: HH:MM in 24 hrs
     closing_time TIME,
-    stop_delay INTEGER, -- i suppose it's in minutes?
+    stop_delay INTEGER, -- in minutes
     street VARCHAR(32),
     town VARCHAR(32),
     postalcode VARCHAR(32),
@@ -85,7 +85,7 @@ CREATE TABLE Trains ( -- moved train creation above schedule bc schedule now req
     description VARCHAR(32),
     seats INTEGER,
     top_speed INTEGER, -- in km/h
-    cost_per_km INTEGER, -- changed price_mi to cost_per_km to keep units consistent,
+    cost_per_km INTEGER, -- changed price_mi to cost_per_km to keep units consistent
 
     CONSTRAINT Trains_PK PRIMARY KEY(train_id)
 );
@@ -128,7 +128,7 @@ CREATE TABLE Customers (
 );
 
 CREATE TABLE Clock (
-    p_date DATE,
+    p_date TIMESTAMP,
 
     CONSTRAINT Clock_PK PRIMARY KEY(p_date)
 );
