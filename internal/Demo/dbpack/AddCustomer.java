@@ -50,7 +50,7 @@ public class AddCustomer extends JFrame implements ActionListener {
         squish.setBackground(Color.BLACK);
 
         JLabel headerMessage = new JLabel("Customer Entry");
-        headerMessage.setFont(new Font("Courier", Font.BOLD, 40));
+        headerMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         headerMessage.setForeground(Color.WHITE);
         headerMessage.setVerticalAlignment(SwingConstants.BOTTOM);
 
@@ -60,7 +60,7 @@ public class AddCustomer extends JFrame implements ActionListener {
         topMessage.setBackground(Color.BLACK);
         
         JLabel advise = new JLabel("Please enter the following...");
-        advise.setFont(new Font("Courier", Font.BOLD, 20));
+        advise.setFont(new Font("Courier New", Font.BOLD, 20));
         advise.setForeground(Color.WHITE);
 
         advise.setVerticalAlignment(SwingConstants.TOP);
@@ -196,12 +196,12 @@ public class AddCustomer extends JFrame implements ActionListener {
     private static void textStyle(JLabel b){
         b.setForeground(Color.WHITE);
         //b.setBackground(Color.BLACK);
-        b.setFont(new Font("Courier", Font.BOLD, 20));
+        b.setFont(new Font("Courier New", Font.BOLD, 20));
     }
 
     private static void formStyle(JTextField b){
         b.setBackground(Color.BLACK);
-        b.setFont(new Font("Courier", Font.BOLD, 18));
+        b.setFont(new Font("Courier New", Font.BOLD, 18));
         b.setForeground(Color.WHITE);
     }
 
@@ -209,7 +209,7 @@ public class AddCustomer extends JFrame implements ActionListener {
         b.setForeground(Color.WHITE);
         b.setBackground(Color.BLACK);
         b.setBorder(new LineBorder(Color.WHITE));
-        b.setFont(new Font("Courier", Font.BOLD, 20));
+        b.setFont(new Font("Courier New", Font.BOLD, 20));
     }
 
     public void addActionEvent(){

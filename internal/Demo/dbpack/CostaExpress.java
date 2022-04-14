@@ -91,7 +91,7 @@ public class CostaExpress extends JFrame implements ActionListener {
         b.setForeground(Color.WHITE);
         b.setBackground(Color.BLACK);
         b.setBorder(new LineBorder(Color.WHITE));
-        b.setFont(new Font("Courier", Font.BOLD, 20));
+        b.setFont(new Font("Courier New", Font.BOLD, 20));
     }
 
     public void actionPerformed(ActionEvent e){

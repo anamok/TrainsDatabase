@@ -13,10 +13,10 @@ public class AgentScreen extends JFrame implements ActionListener {
     JPanel topMessage = new JPanel(new GridLayout(0,1));
 
     JButton addButton = new JButton("Add Customer"); //create insert statement with a form
-    JButton editButton = new JButton("Edit Customer"); //create update statement 
+    JButton editButton = new JButton("Edit/View Customer"); //create update statement 
     JButton searchButton = new JButton("Search Database"); //search/view data for customers, trips or reservations
-    JButton addReservationButton = new JButton("Add Reservation"); //extra button
-    JButton tmpButton2 = new JButton("RESERVED"); //extra button
+    JButton addReservationButton = new JButton("Add Reservation"); //adds reservation
+    JButton updateReservationButton = new JButton("Update Reservation"); //updates reservation balances
     JButton exitButton = new JButton("Logout"); //Log out of program
 
     JPanel guiPush;
@@ -38,7 +38,7 @@ public class AgentScreen extends JFrame implements ActionListener {
         gui.add(agentcenter, BorderLayout.CENTER);
 
         JLabel welcomeMessage = new JLabel("Welcome!");
-        welcomeMessage.setFont(new Font("Courier", Font.BOLD, 40));
+        welcomeMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         welcomeMessage.setForeground(Color.WHITE);
 
         welcomeMessage.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -48,7 +48,7 @@ public class AgentScreen extends JFrame implements ActionListener {
         topMessage.setBackground(Color.BLACK);
 
         JLabel advise = new JLabel("Please select a menu option...");
-        advise.setFont(new Font("Courier", Font.BOLD, 20));
+        advise.setFont(new Font("Courier New", Font.BOLD, 20));
         advise.setForeground(Color.WHITE);
 
         advise.setVerticalAlignment(SwingConstants.TOP);
@@ -63,14 +63,14 @@ public class AgentScreen extends JFrame implements ActionListener {
         buttonStyle(editButton);
         buttonStyle(searchButton);
         buttonStyle(addReservationButton);
-        buttonStyle(tmpButton2);
+        buttonStyle(updateReservationButton);
         buttonStyle(exitButton);
 
         agentButtonPanel.add(addButton);
         agentButtonPanel.add(editButton);
         agentButtonPanel.add(searchButton);
         agentButtonPanel.add(addReservationButton);
-        agentButtonPanel.add(tmpButton2);
+        agentButtonPanel.add(updateReservationButton);
         agentButtonPanel.add(exitButton);
 
         agentcenter.add(agentButtonPanel);
@@ -93,7 +93,7 @@ public class AgentScreen extends JFrame implements ActionListener {
         b.setForeground(Color.WHITE);
         b.setBackground(Color.BLACK);
         b.setBorder(new LineBorder(Color.WHITE));
-        b.setFont(new Font("Courier", Font.BOLD, 20));
+        b.setFont(new Font("Courier New", Font.BOLD, 20));
     }
 
     public void addActionEvent(){
@@ -101,7 +101,7 @@ public class AgentScreen extends JFrame implements ActionListener {
         editButton.addActionListener(this);
         searchButton.addActionListener(this);
         addReservationButton.addActionListener(this);
-        tmpButton2.addActionListener(this);
+        updateReservationButton.addActionListener(this);
         exitButton.addActionListener(this);
     }
 
@@ -114,6 +114,7 @@ public class AgentScreen extends JFrame implements ActionListener {
             //new customer
             AddCustomer newCustomer = new AddCustomer(guiPush, centerPush, passwordp, userp);
         } else if (source == editButton){
+            EditCustomer oldCustomer = new EditCustomer(guiPush, centerPush, passwordp, userp);
 
         } else if (source == searchButton){
             //
@@ -121,8 +122,9 @@ public class AgentScreen extends JFrame implements ActionListener {
             //new reservation
             AddReservation newReservation = new AddReservation(guiPush, centerPush, passwordp, userp);
 
-        } else if (source == tmpButton2){
+        } else if (source == updateReservationButton){
             //
+            UpdateReservation oldReservation = new UpdateReservation(guiPush, centerPush, passwordp, userp);
         } else if (source == exitButton){
             // return to login 
             AgentLogin agentP = new AgentLogin(guiPush, centerPush);

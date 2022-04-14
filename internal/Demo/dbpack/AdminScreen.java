@@ -36,7 +36,7 @@ public class AdminScreen extends JFrame implements ActionListener {
         gui.add(adminCenter, BorderLayout.CENTER);
 
         JLabel welcomeMessage = new JLabel("Welc54ome!");
-        welcomeMessage.setFont(new Font("Courier", Font.BOLD, 40));
+        welcomeMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         welcomeMessage.setForeground(Color.WHITE);
 
         welcomeMessage.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -46,7 +46,7 @@ public class AdminScreen extends JFrame implements ActionListener {
         topMessage.setBackground(Color.BLACK);
 
         JLabel advise = new JLabel("Please select a menu option...");
-        advise.setFont(new Font("Courier", Font.BOLD, 20));
+        advise.setFont(new Font("Courier New", Font.BOLD, 20));
         advise.setForeground(Color.WHITE);
 
         advise.setVerticalAlignment(SwingConstants.TOP);
@@ -91,7 +91,7 @@ public class AdminScreen extends JFrame implements ActionListener {
         b.setForeground(Color.WHITE);
         b.setBackground(Color.BLACK);
         b.setBorder(new LineBorder(Color.WHITE));
-        b.setFont(new Font("Courier", Font.BOLD, 20));
+        b.setFont(new Font("Courier New", Font.BOLD, 20));
     }
 
     public void addActionEvent(){
