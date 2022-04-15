@@ -43,23 +43,23 @@ public class AddCustomer extends JFrame implements ActionListener {
         center.setVisible(false);
 
         customerCenter.setBackground(Color.BLACK);
-        customerCenter.setBorder(new EmptyBorder(30, 20, 0, 20));
+        customerCenter.setBorder(new EmptyBorder(30, 20, 150, 20));
         gui.add(customerCenter, BorderLayout.CENTER);
 
         JPanel squish = new JPanel();
         squish.setBackground(Color.BLACK);
 
-        JLabel headerMessage = new JLabel("Customer Entry");
+        JLabel headerMessage = new JLabel("Customer Entry", SwingConstants.CENTER);
         headerMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         headerMessage.setForeground(Color.WHITE);
         headerMessage.setVerticalAlignment(SwingConstants.BOTTOM);
 
         JPanel topMessage = new JPanel(new GridLayout(0,1));
-        topMessage.add(squish);
+        //topMessage.add(squish);
         topMessage.add(headerMessage);
         topMessage.setBackground(Color.BLACK);
         
-        JLabel advise = new JLabel("Please enter the following...");
+        JLabel advise = new JLabel("Please enter the following...", SwingConstants.CENTER);
         advise.setFont(new Font("Courier New", Font.BOLD, 20));
         advise.setForeground(Color.WHITE);
 
@@ -125,6 +125,8 @@ public class AddCustomer extends JFrame implements ActionListener {
         squish3.setBackground(Color.BLACK);
 
         JPanel formPanel = new JPanel(new GridLayout(0,2));
+        formPanel.setBackground(Color.BLACK);
+        formPanel.setBorder(new EmptyBorder(0, 250, 0, 250));
     
         formPanel.add(fn);
         formPanel.add(firstName);
@@ -152,7 +154,7 @@ public class AddCustomer extends JFrame implements ActionListener {
         customerCenter.add(formPanel);
         
 
-        customerCenter.add(squish);
+        //customerCenter.add(squish);
 
 
 
@@ -268,8 +270,12 @@ public class AddCustomer extends JFrame implements ActionListener {
             customerID.setText(returnedID);
             customerID.setForeground(Color.GREEN);
 
-
-            
+            //close connection
+            try{
+                conn.close();
+            } catch (SQLException df){
+                System.out.println(df);
+            }
             
 
         } else if (source == backButton) {

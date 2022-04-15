@@ -51,7 +51,7 @@ public class AddReservation extends JFrame implements ActionListener {
         JPanel squish = new JPanel();
         squish.setBackground(Color.BLACK);
 
-        JLabel headerMessage = new JLabel("Reservation Entry");
+        JLabel headerMessage = new JLabel("Reservation Entry", SwingConstants.CENTER);
         headerMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         headerMessage.setForeground(Color.WHITE);
         headerMessage.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -61,7 +61,7 @@ public class AddReservation extends JFrame implements ActionListener {
         topMessage.add(headerMessage);
         topMessage.setBackground(Color.BLACK);
         
-        JLabel advise = new JLabel("Please enter the following...");
+        JLabel advise = new JLabel("Please enter the following...", SwingConstants.CENTER);
         advise.setFont(new Font("Courier New", Font.BOLD, 20));
         advise.setForeground(Color.WHITE);
 
@@ -140,6 +140,8 @@ public class AddReservation extends JFrame implements ActionListener {
         squish3.setBackground(Color.BLACK);
 
         JPanel formPanel = new JPanel(new GridLayout(0,2));
+        formPanel.setBackground(Color.BLACK);
+        formPanel.setBorder(new EmptyBorder(0, 250, 0, 250));
 
         JPanel squish4 = new JPanel();
         squish4.setBackground(Color.BLACK);
@@ -174,6 +176,8 @@ public class AddReservation extends JFrame implements ActionListener {
         //Reservation entry
         JPanel formPanel2 = new JPanel(new GridLayout(0,2));
         formPanel2.setBackground(Color.BLACK);
+        formPanel2.setBackground(Color.BLACK);
+        formPanel2.setBorder(new EmptyBorder(0, 250, 0, 250));
 
         JPanel squish7 = new JPanel();
         squish7.setBackground(Color.BLACK);
@@ -202,7 +206,7 @@ public class AddReservation extends JFrame implements ActionListener {
         formPanel2.add(squish10);
 
         reservationCenter.add(formPanel2);
-        reservationCenter.add(squish3);
+        //reservationCenter.add(squish3);
     }
 
     private static void formStyle(JTextField b){
@@ -270,10 +274,10 @@ public class AddReservation extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e)  {
         Object source = e.getSource();
 
-        //need to add db connection
-        connectionDB();
-
         if (source == getPrice) {
+            //need to add db connection
+            connectionDB();
+
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT train_id FROM Route_Schedules WHERE routeid = '" + route.getText() + "' \nAND ");
             sb.append("day = '" + day.getText() + "' \nAND time = '" + time.getText() + "';");
@@ -333,11 +337,25 @@ public class AddReservation extends JFrame implements ActionListener {
 
             price.setText(returnedID2);
 
+            try{
+                conn.close();
+            } catch (SQLException df){
+                System.out.println(df);
+            }
 
+            //close connection
+            try{
+                conn.close();
+            } catch (SQLException df){
+                System.out.println(df);
+            }
 
         } else if (source == backRButton) {
-            AgentScreen agentS = new AgentScreen(guiPush, reservationCenter, passwordp, userp);
+            AgentScreen agentSL = new AgentScreen(guiPush, reservationCenter, passwordp, userp);
         } else if (source == addRButton){
+            //need to add db connection
+            connectionDB();
+
             StringBuilder resInsert = new StringBuilder();
 
             double remainingBal = Double.valueOf(price.getText()) - Double.valueOf(totalPaid.getText());
@@ -361,10 +379,17 @@ public class AddReservation extends JFrame implements ActionListener {
 
             System.out.println(returnQuery);
             ResultSet resultSet = null;
+
+            StringBuilder updateSeatQuery = new StringBuilder();
+            updateSeatQuery.append("CALL updateRouteSeatCountFunction( " + startA.getText() + ", " + endB.getText() + ", " + route.getText() + ", '" + day.getText());
+            updateSeatQuery.append("'::varchar, " + "'" + time.getText() + ":00'::time);");
+
+            System.out.println(updateSeatQuery);
             
             try { 
                 try{
                     st.executeUpdate(resInsert.toString()); //adds new customer to db
+                    st.executeUpdate(updateSeatQuery.toString()); //updates the seatcount table
                     resultSet = st.executeQuery(returnQuery.toString());
                 } catch (NullPointerException np1){
                     System.out.println(np1);
@@ -426,11 +451,20 @@ public class AddReservation extends JFrame implements ActionListener {
 
 
             }
+
+            try{
+                conn.close();
+            } catch (SQLException df){
+                System.out.println(df);
+            }
             
 
 
 
+
         }
+
+
         
     }
 

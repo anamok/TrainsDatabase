@@ -73,19 +73,19 @@ public class UpdateReservation extends JFrame implements ActionListener {
                                     // add the new editcenter screen
 
         resEditCenter.setBackground(Color.BLACK); //sets bg color of the new edit center screen
-        resEditCenter.setBorder(new EmptyBorder(30, 20, 0, 20)); //it has a border because formatting is hard
+        resEditCenter.setBorder(new EmptyBorder(0, 20, 130, 20)); //it has a border because formatting is hard
         gui.add(resEditCenter, BorderLayout.CENTER);// add the new center screen to the entire screen, in the center
                             
         // create top 'banner' message
-        JLabel headerMessage = new JLabel("Edit Reservation");
+        JLabel headerMessage = new JLabel("Edit Reservation", SwingConstants.CENTER);
         headerMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         headerMessage.setForeground(Color.WHITE);
         headerMessage.setVerticalAlignment(SwingConstants.BOTTOM);
         
-        JLabel advise = new JLabel("Please enter the Reservation ID", SwingConstants.CENTER);
+        JLabel advise = new JLabel("Please enter the Reservation ID number", SwingConstants.CENTER);
         advise.setFont(new Font("Courier New", Font.BOLD, 20));
         advise.setForeground(Color.WHITE);
-        advise.setVerticalAlignment(SwingConstants.TOP);
+        advise.setVerticalAlignment(SwingConstants.CENTER);
 
         // create panel to attach the banner message
         JPanel topMessage = new JPanel(new GridLayout(0,1));
@@ -97,7 +97,7 @@ public class UpdateReservation extends JFrame implements ActionListener {
 
         // add these to a panel.. we're doing this so many times because
         // I don't know how to use most of the layout options :)
-        topMessage.add(squish);
+        //topMessage.add(squish);
         topMessage.add(headerMessage);
         topMessage.add(advise);
 
@@ -170,6 +170,7 @@ public class UpdateReservation extends JFrame implements ActionListener {
         // row3colA, ...etc
         JPanel formPanel = new JPanel(new GridLayout(0,2));
         formPanel.setBackground(Color.BLACK);
+        formPanel.setBorder(new EmptyBorder(0, 250, 0, 250));
 
         // add all of the objects to the form panel
         formPanel.add(resn); // row1colA : "Reservation Number: "
@@ -197,6 +198,7 @@ public class UpdateReservation extends JFrame implements ActionListener {
         formPanel.add(backRButton);
         formPanel.add(saveRButton);
 
+
         //add the form panel to the center of the screen
         resEditCenter.add(formPanel);
 
@@ -205,7 +207,7 @@ public class UpdateReservation extends JFrame implements ActionListener {
         JPanel squish22 = new JPanel();
         squish22.setBackground(Color.BLACK);
 
-        resEditCenter.add(squish22);
+        //resEditCenter.add(squish22);
 
     }
 
@@ -331,6 +333,8 @@ public class UpdateReservation extends JFrame implements ActionListener {
 
             // setText in the return fields for their corresponding attributes
 
+            // close connection
+
             
         } else if (source == saveRButton){    
             // start db connection, because im not sure if we need to close it from the 
@@ -363,6 +367,8 @@ public class UpdateReservation extends JFrame implements ActionListener {
             
             // setText for new balance field and ticket number field
 
+            // close connection
+
         } else if (source == deleteRButton) {
             // start db connection
 
@@ -375,6 +381,8 @@ public class UpdateReservation extends JFrame implements ActionListener {
             // try/catch block to execute Update
 
             // update text fields to appropriate 'deleted' messages, if desired
+
+            // close connection
 
         } else if (source == backRButton) {
             AgentScreen agentS = new AgentScreen(guiPush, resEditCenter, passwordp, userp);

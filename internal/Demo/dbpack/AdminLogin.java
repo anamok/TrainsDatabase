@@ -14,7 +14,7 @@ import java.awt.event.*;
 public class AdminLogin extends JFrame implements ActionListener {
     JPanel agentLoginp = new JPanel(new GridLayout(0,1));
     JButton submitButton = new JButton("Login"); 
-    JButton returnButton = new JButton("Back");
+    JButton agentButton = new JButton("Agent");
     JTextField userID;
     JPasswordField password;
     JPanel guiPass;
@@ -32,7 +32,7 @@ public class AdminLogin extends JFrame implements ActionListener {
         JLabel loginMessage = new JLabel("Admin Login", SwingConstants.CENTER);
         loginMessage.setFont(new Font("Courier New", Font.BOLD, 30));
         loginMessage.setForeground(Color.WHITE);
-        //loginMessage.setVerticalAlignment(SwingConstants.TOP);
+        //loginMessage.setVerticalAlignment(SwingConstants.BOTTOM);
 
         JPanel topBar = new JPanel();
         topBar.setBackground(Color.BLACK);
@@ -44,10 +44,10 @@ public class AdminLogin extends JFrame implements ActionListener {
         submitButton.setBorder(new LineBorder(Color.WHITE));
         submitButton.setFont(new Font("Courier New", Font.BOLD, 18));
 
-        returnButton.setForeground(Color.WHITE);
-        returnButton.setBackground(Color.BLACK);
-        returnButton.setBorder(new LineBorder(Color.WHITE));
-        returnButton.setFont(new Font("Courier New", Font.BOLD, 18));
+        agentButton.setForeground(Color.WHITE);
+        agentButton.setBackground(Color.BLACK);
+        agentButton.setBorder(new LineBorder(Color.WHITE));
+        agentButton.setFont(new Font("Courier New", Font.BOLD, 18));
 
         try{
             BufferedImage userImage = ImageIO.read(new File("user-01-01.png"));
@@ -64,7 +64,7 @@ public class AdminLogin extends JFrame implements ActionListener {
 
         JPanel formMenu = new JPanel(new GridLayout(0,2));
         formMenu.setBackground(Color.BLACK);
-        formMenu.setBorder(new EmptyBorder(0, 50, 0, 50));
+        formMenu.setBorder(new EmptyBorder(0, 250, 0, 250));
 
         JPanel squish = new JPanel();
         JPanel squish2 = new JPanel();
@@ -109,10 +109,8 @@ public class AdminLogin extends JFrame implements ActionListener {
         formMenu.add(password);
         formMenu.add(squish3);
         formMenu.add(squish7);
-        formMenu.add(returnButton);
+        formMenu.add(agentButton);
         formMenu.add(submitButton);
-        formMenu.add(squish5);
-        formMenu.add(squish6);
 
         agentLoginp.add(formMenu);
 
@@ -130,7 +128,7 @@ public class AdminLogin extends JFrame implements ActionListener {
     }
 
     public void addActionEvent(){
-        returnButton.addActionListener(this);
+        agentButton.addActionListener(this);
         submitButton.addActionListener(this);
     }
 
@@ -152,9 +150,8 @@ public class AdminLogin extends JFrame implements ActionListener {
 
             
        
-        } else if (source == returnButton) { //this doesnt work quite right, returns to prev page if prev page was agent screen
-            //agentLoginp.setVisible(false);
-            //oldCenter.setVisible(true);
+        } else if (source == agentButton) { //this doesnt work quite right, returns to prev page if prev page was agent screen
+            AgentLogin newALog = new AgentLogin(guiPass, agentLoginp);
         }
     }
 

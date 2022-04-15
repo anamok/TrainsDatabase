@@ -30,7 +30,7 @@ public class CostaExpress extends JFrame implements ActionListener {
         JPanel buttonPanel = new JPanel(new GridLayout(0,1));
         buttonPanel.setBackground(Color.BLACK);
 
-        buttonPanel.setBorder(new EmptyBorder(0, 75, 100, 75));
+        buttonPanel.setBorder(new EmptyBorder(50, 250, 100, 250));
         
         gui.setBorder(new EmptyBorder(50, 50, 50, 50));
         gui.setBackground(Color.BLACK);
@@ -41,10 +41,10 @@ public class CostaExpress extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel sideBar = new JPanel();
-        sideBar.setPreferredSize(new Dimension(250,200));
+        sideBar.setPreferredSize(new Dimension(0,200));
         sideBar.setBackground(Color.BLACK);
         JPanel sideBar2 = new JPanel();
-        sideBar2.setPreferredSize(new Dimension(250,200));
+        sideBar2.setPreferredSize(new Dimension(0,200));
         sideBar2.setBackground(Color.BLACK);
 
         try{

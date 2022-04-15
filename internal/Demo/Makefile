@@ -9,7 +9,9 @@ SRC= dbpack/CostaExpress.java	\
 	dbpack/AgentScreen.java	\
 	dbpack/EditCustomer.java	\
 	dbpack/UpdateReservation.java	\
-	
+	dbpack/SearchDatabase.java	\
+	dbpack/SingleRoute.java	\
+
 CLS= $(SRC:.java=.class)
 
 all:  $(CLS)

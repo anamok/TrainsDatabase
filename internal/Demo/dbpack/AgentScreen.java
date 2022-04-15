@@ -37,7 +37,7 @@ public class AgentScreen extends JFrame implements ActionListener {
         agentcenter.setBorder(new EmptyBorder(30, 20, 50, 20));
         gui.add(agentcenter, BorderLayout.CENTER);
 
-        JLabel welcomeMessage = new JLabel("Welcome!");
+        JLabel welcomeMessage = new JLabel("Welcome!", SwingConstants.CENTER);
         welcomeMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         welcomeMessage.setForeground(Color.WHITE);
 
@@ -47,7 +47,7 @@ public class AgentScreen extends JFrame implements ActionListener {
         topMessage.add(welcomeMessage);
         topMessage.setBackground(Color.BLACK);
 
-        JLabel advise = new JLabel("Please select a menu option...");
+        JLabel advise = new JLabel("Please select a menu option...", SwingConstants.CENTER);
         advise.setFont(new Font("Courier New", Font.BOLD, 20));
         advise.setForeground(Color.WHITE);
 
@@ -58,6 +58,8 @@ public class AgentScreen extends JFrame implements ActionListener {
         agentcenter.add(topMessage);
 
         JPanel agentButtonPanel = new JPanel(new GridLayout(0,1));
+        agentButtonPanel.setBackground(Color.BLACK);
+        agentButtonPanel.setBorder(new EmptyBorder(0, 250, 0, 250));
 
         buttonStyle(addButton);
         buttonStyle(editButton);
@@ -117,7 +119,7 @@ public class AgentScreen extends JFrame implements ActionListener {
             EditCustomer oldCustomer = new EditCustomer(guiPush, centerPush, passwordp, userp);
 
         } else if (source == searchButton){
-            //
+            SearchDatabase newSearch = new SearchDatabase(guiPush, centerPush, passwordp, userp);
         } else if (source == addReservationButton){
             //new reservation
             AddReservation newReservation = new AddReservation(guiPush, centerPush, passwordp, userp);

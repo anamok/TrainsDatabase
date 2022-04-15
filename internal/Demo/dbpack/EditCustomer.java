@@ -71,11 +71,11 @@ public class EditCustomer extends JFrame implements ActionListener {
                                     // add the new editcenter screen
 
         editCenter.setBackground(Color.BLACK); //sets bg color of the new edit center screen
-        editCenter.setBorder(new EmptyBorder(30, 20, 0, 20)); //it has a border because formatting is hard
+        editCenter.setBorder(new EmptyBorder(0, 20, 130, 20)); //it has a border because formatting is hard
         gui.add(editCenter, BorderLayout.CENTER);// add the new center screen to the entire screen, in the center
 
         // create top 'banner' message
-        JLabel headerMessage = new JLabel("Edit Customer");
+        JLabel headerMessage = new JLabel("Edit Customer", SwingConstants.CENTER);
         headerMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         headerMessage.setForeground(Color.WHITE);
         headerMessage.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -87,17 +87,12 @@ public class EditCustomer extends JFrame implements ActionListener {
         JLabel advise = new JLabel("Please enter either (Customer ID)", SwingConstants.CENTER);
         advise.setFont(new Font("Courier New", Font.BOLD, 20));
         advise.setForeground(Color.WHITE);
-        advise.setVerticalAlignment(SwingConstants.TOP);
+        advise.setVerticalAlignment(SwingConstants.BOTTOM);
 
-        JLabel advise2 = new JLabel("-- OR --", SwingConstants.CENTER);
+        JLabel advise2 = new JLabel("- OR - (First Name, Last Name and Email)", SwingConstants.CENTER);
         advise2.setFont(new Font("Courier New", Font.BOLD, 20));
         advise2.setForeground(Color.WHITE);
         advise2.setVerticalAlignment(SwingConstants.TOP);
-
-        JLabel advise3 = new JLabel("(First Name, Last Name and Email)", SwingConstants.CENTER);
-        advise3.setFont(new Font("Courier New", Font.BOLD, 20));
-        advise3.setForeground(Color.WHITE);
-        advise3.setVerticalAlignment(SwingConstants.TOP);
 
         // create panel to attach the banner message
         JPanel topMessage = new JPanel(new GridLayout(0,1));
@@ -109,11 +104,11 @@ public class EditCustomer extends JFrame implements ActionListener {
 
         advisePanel.add(advise);
         advisePanel.add(advise2);
-        advisePanel.add(advise3);
+        //advisePanel.add(advise3);
 
         // add these to a panel.. we're doing this so many times because
         // I don't know how to use most of the layout options :)
-        topMessage.add(squish);
+        // topMessage.add(squish);
         topMessage.add(headerMessage);
         topMessage.add(advisePanel);
         
@@ -185,6 +180,8 @@ public class EditCustomer extends JFrame implements ActionListener {
         // row3colA, ...etc
         JPanel formPanel = new JPanel(new GridLayout(0,2));
         formPanel.setBackground(Color.BLACK);
+        formPanel.setBackground(Color.BLACK);
+        formPanel.setBorder(new EmptyBorder(0, 250, 0, 250));
 
         // add all of the objects to the form panel
         formPanel.add(ctmrid); // row1colA : "Customer ID"
@@ -220,7 +217,7 @@ public class EditCustomer extends JFrame implements ActionListener {
         JPanel squish22 = new JPanel();
         squish22.setBackground(Color.BLACK);
 
-        editCenter.add(squish22);
+        //editCenter.add(squish22);
 
     }
 
@@ -322,7 +319,8 @@ public class EditCustomer extends JFrame implements ActionListener {
 
             // setText in the return fields for their corresponding attributes
 
-            
+            // close connection
+
         } else if (source == saveCButton){    
             // start db connection, because im not sure if we need to close it from the 
             // get button but it cant hurt to restart it, I suppose
@@ -331,7 +329,7 @@ public class EditCustomer extends JFrame implements ActionListener {
 
             // try/catch block with st.executeUpdate(yourString);
 
-
+            // close connection
         } else if (source == backCButton) {
             AgentScreen agentS = new AgentScreen(guiPush, editCenter, passwordp, userp);
         }
