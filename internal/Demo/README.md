@@ -38,3 +38,32 @@ using the makefile, you can now call 'make' in the root directory, Demo, instead
 It's not a big deal for you guys now, but when I was working through the code initially, VScode would save code but not update the .class file, so when I would run the code from the command prompt, the changes weren't saving and I had to run javac -cp "postgresql-42.2.18.jar;." dbpack/CostaExpress.java for each .java file that I updated. If you encounter an issue where the updates arent reflecting on your program when entered with the command prompt, this is probably why <br>
 
 -Sam
+
+4/15 Updates
+
+Added Search screen and Single Route search screen.
+Added new sql file "updatePhase3_v1.sql" which must be run before the updates will be functional.
+
++ Added new table because we needed a place to store the total seats for each train on any given schedule stop. 
++ Populated the new data with data from pre-existing tables.
++ Implemented a seat count function to update the seat count for the seat a passenger uses throughout their journey.
++ Implemented the Single Route Trip Search requirement. Sorting functionality works but does not show the sorting method value.
+
+What we still need to finish:
++ EditCustomer.java
++ UpdateReservation.java
++ AdminScreen.java
++   - Import Database by AllData.txt (complete, but cannot access import from program yet)
++   - Import Database using user specified file.
++   - Export Database
++   - Delete Database
++ Combined Route Trip Search (CombinedRoute.java, does not exist yet)
++ Advanced Searches A - I (AdvSearchA.java, AdvSearchB.java, ... AdvSearchH.java, AdvSearchI.java, these do not exist yet) 
++ Customer Reservation Search(I added this so we could easily find reservations that a customer has, but it's very low on the priority list and I can delete it if we can't get to it)
+
+I'm hoping since Single Route Search is now implemented, we can use that as a template for the remaining searches. 
+
+If you update, make sure to run the updatePhase3_v1.sql before running the program.
+Let me know if either of you have any questions!
+
+-Sam
