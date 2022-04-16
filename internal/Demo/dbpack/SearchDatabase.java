@@ -197,6 +197,8 @@ public class SearchDatabase extends JFrame implements ActionListener {
 
             } else if (searchOptionSelected.equals("Combo Route")){
                 System.out.println("combo rt selected");
+
+                ComboRoute newComboRt = new ComboRoute(guiPush, searchCenter, passwordp, userp);
             }
 
 

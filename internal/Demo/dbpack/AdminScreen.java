@@ -125,7 +125,7 @@ public class AdminScreen extends JFrame implements ActionListener {
             //
         } else if (source == exitButton){
             // return to login 
-            AgentLogin agentP = new AgentLogin(guiPush, centerPush);
+            AdminLogin agentP = new AdminLogin(guiPush, centerPush);
 
         } 
 

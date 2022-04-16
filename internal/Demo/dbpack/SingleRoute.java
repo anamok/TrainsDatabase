@@ -381,7 +381,7 @@ public class SingleRoute extends JFrame implements ActionListener {
             
 
         } else if (source == backButton){
-            AgentScreen agentS = new AgentScreen(guiPush, singleCenter, passwordp, userp);
+            SearchDatabase agentS = new SearchDatabase(guiPush, singleCenter, passwordp, userp);
         } else if (source == nextButton) {
             int i = 0;
             String returnRoute = "error";

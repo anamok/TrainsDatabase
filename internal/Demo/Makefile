@@ -11,6 +11,7 @@ SRC= dbpack/CostaExpress.java	\
 	dbpack/UpdateReservation.java	\
 	dbpack/SearchDatabase.java	\
 	dbpack/SingleRoute.java	\
+	dbpack/ComboRoute.java	\
 
 CLS= $(SRC:.java=.class)
 
