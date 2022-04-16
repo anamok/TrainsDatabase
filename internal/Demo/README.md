@@ -43,6 +43,7 @@ It's not a big deal for you guys now, but when I was working through the code in
 
 Added Search screen and Single Route search screen.
 Added new sql file "updatePhase3_v1.sql" which must be run before the updates will be functional.
+Added Combination Route Search screen and functionality.
 
 + Added new table because we needed a place to store the total seats for each train on any given schedule stop. 
 + Populated the new data with data from pre-existing tables.
@@ -57,7 +58,7 @@ What we still need to finish:
 +   - Import Database using user specified file.
 +   - Export Database
 +   - Delete Database
-+ Combined Route Trip Search (CombinedRoute.java, does not exist yet)
++ Combined Route Trip Search (CombinedRoute.java, does not exist yet) **DONE**
 + Advanced Searches A - I (AdvSearchA.java, AdvSearchB.java, ... AdvSearchH.java, AdvSearchI.java, these do not exist yet) 
 + Customer Reservation Search(I added this so we could easily find reservations that a customer has, but it's very low on the priority list and I can delete it if we can't get to it)
 
@@ -67,3 +68,5 @@ If you update, make sure to run the updatePhase3_v1.sql before running the progr
 Let me know if either of you have any questions!
 
 -Sam
+
+
