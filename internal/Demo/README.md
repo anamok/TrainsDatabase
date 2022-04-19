@@ -61,7 +61,7 @@ What we still need to finish:
 +   - Export Database
 +   - Delete Database
 + Combined Route Trip Search (CombinedRoute.java, does not exist yet) **DONE**
-+ Advanced Searches A - I (AdvSearchA.java, AdvSearchB.java, ... AdvSearchH.java, AdvSearchI.java, these do not exist yet) 
++ Advanced Searches A - I (AdvSearchA.java, AdvSearchB.java, ... AdvSearchH.java, AdvSearchI.java, these do not exist yet) (advA is done)
 + Customer Reservation Search(I added this so we could easily find reservations that a customer has, but it's very low on the priority list and I can delete it if we can't get to it)
 
 I'm hoping since Single Route Search is now implemented, we can use that as a template for the remaining searches. 
