@@ -166,7 +166,9 @@ $$;
 -- each station there will always be 350 DISTINCT trains stopped at it, therefore the
 -- set difference always returns an empty set)
 
-CREATE OR REPLACE FUNCTION advancedSearchF()
+CREATE OR REPLACE FUNCTION advancedSearchF(
+    -- need to add station input integer
+)
 returns SETOF record
 language plpgsql AS $$
 BEGIN

@@ -205,13 +205,13 @@ public class SearchDatabase extends JFrame implements ActionListener {
         } else if (source == advSearchAButton) {
             AdvA newsearchA = new AdvA(guiPush, searchCenter, passwordp, userp);
         } else if (source == advSearchBButton){
-
+            AdvB newsearchB = new AdvB(guiPush, searchCenter, passwordp, userp);
         } else if (source == advSearchCButton) {
-
+            AdvC newsearchC = new AdvC(guiPush, searchCenter, passwordp, userp);
         }  else if (source == advSearchDButton) {
-
+            AdvD newsearchD = new AdvD(guiPush, searchCenter, passwordp, userp);
         }  else if (source == advSearchEButton) {
-
+            AdvE newsearchE = new AdvE(guiPush, searchCenter, passwordp, userp);
         }  else if (source == advSearchFButton) {
 
         }  else if (source == advSearchGButton) {
