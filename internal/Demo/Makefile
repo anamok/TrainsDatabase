@@ -12,6 +12,7 @@ SRC= dbpack/CostaExpress.java	\
 	dbpack/SearchDatabase.java	\
 	dbpack/SingleRoute.java	\
 	dbpack/ComboRoute.java	\
+	dbpack/AdvA.java	\
 
 CLS= $(SRC:.java=.class)
 

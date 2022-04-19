@@ -362,9 +362,10 @@ public class SingleRoute extends JFrame implements ActionListener {
                     returnSeats = resultSet.getString("seat_count");
                     returnStart = resultSet.getString("stationa");
                     returnEnd = resultSet.getString("stationb");
-                    } catch (SQLException r){
+
+                } catch (SQLException r){
                         System.out.println(r);
-                    }
+                }
 
                     StringBuilder sb = new StringBuilder();
                     String str1 = String.format("%-7s|", returnRoute);
