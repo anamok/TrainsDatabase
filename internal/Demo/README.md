@@ -45,7 +45,9 @@ Added Search screen and Single Route search screen.<br>
 Added new sql file "updatePhase3_v1.sql" which must be run before the updates will be functional.<br>
 Added Combination Route Search screen and functionality. <br>
 Added new sql file "updatePhase3_v2.sql" which must be run before the updates will be functional.<br>
-Make sure to run both updatephase3_v files. <br>
+Make sure to run all updatephase3_v files. <br>
+Added new sql file "updatePhase3_v3.sql" which must be run before the updates will be functional.<br>
+Make sure to run all updatephase3_v files. <br>
 
 + Added new table because we needed a place to store the total seats for each train on any given schedule stop. 
 + Populated the new data with data from pre-existing tables.
