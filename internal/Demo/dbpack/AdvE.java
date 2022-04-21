@@ -109,7 +109,6 @@ public class AdvE extends JFrame implements ActionListener  {
         sb.append("SELECT * from advancedSearchE() AS f(station_id int);");
 
         System.out.println(sb.toString());
-        /*
         resultSet = null;
 
         try { 
@@ -146,8 +145,6 @@ public class AdvE extends JFrame implements ActionListener  {
                 i++;
         } while (i < 10);
 
-
-        */
 
     }
 
@@ -218,30 +215,29 @@ public class AdvE extends JFrame implements ActionListener  {
             int i = 0;
             String returnStation = "error";
             
-            /*
             if (resultSet != null){
                 returnText.setText("");
                 do {
-                    try{
-                        if (resultSet.next() == false){
+                    try {
+                        if (resultSet.isLast()){
                             break;
                         }
-                        resultSet.next();
-
-                        returnStation = resultSet.getString("station_id");
-
-                        } catch (SQLException r){
-                            System.out.println(r);
+                        else {
+                            resultSet.next();
+                            returnStation = resultSet.getString("station_id");
                         }
-    
-                        String str1 = String.format("%-7s\n", returnStation);
 
+                    } catch (SQLException r){
+                            System.out.println(r);
+                    }
     
-                        returnText.append(str1); 
-                        i++;
+                    String str1 = String.format("%-7s\n", returnStation);
+
+
+                    returnText.append(str1); 
+                    i++;
                 } while (i < 10);
-            } 
-            */            
+            }             
         }
 
 
