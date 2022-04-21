@@ -31,6 +31,8 @@ public class AddReservation extends JFrame implements ActionListener {
     JTextField time;
     JTextField ticket;
 
+    JComboBox<String> orderByList;
+
     String passwordp = "";
     String userp = "";
 
@@ -88,6 +90,7 @@ public class AddReservation extends JFrame implements ActionListener {
         JLabel remBalance = new JLabel("Remaining Balance: ", SwingConstants.RIGHT);
         JLabel resNumber = new JLabel("Reservation Number: ", SwingConstants.RIGHT);
         JLabel ticketNumber = new JLabel("Ticket Number: ", SwingConstants.RIGHT);
+        JLabel adj = new JLabel("Adjustments: ", SwingConstants.RIGHT);
 
         textStyle(sStation);
         textStyle(dStation);
@@ -101,6 +104,7 @@ public class AddReservation extends JFrame implements ActionListener {
         textStyle(remBalance);
         textStyle(resNumber);
         textStyle(ticketNumber);
+        textStyle(adj);
 
         reservationNumber = new JTextField("xx");
         reservationNumber.setEditable(false);
@@ -149,6 +153,18 @@ public class AddReservation extends JFrame implements ActionListener {
         squish5.setBackground(Color.BLACK);
         JPanel squish6 = new JPanel();
         squish6.setBackground(Color.BLACK);
+
+        String[] searchParameters = {"Yes", "No"};
+        orderByList = new JComboBox<String>();
+
+
+        for (int i = 0; i < searchParameters.length; i++){
+            orderByList.addItem(searchParameters[i]);
+        }
+
+        orderByList.setBackground(Color.BLACK);
+        orderByList.setForeground(Color.WHITE);
+        orderByList.setFont(new Font("Courier New", Font.BOLD, 20));
     
         formPanel.add(sStation);
         formPanel.add(startA);
@@ -166,8 +182,8 @@ public class AddReservation extends JFrame implements ActionListener {
         formPanel.add(price);
         formPanel.add(squish4);
         formPanel.add(getPrice);
-        formPanel.add(squish5);
-        formPanel.add(squish6);
+        formPanel.add(adj);
+        formPanel.add(orderByList);
 
         formPanel.setBackground(Color.BLACK);
 
@@ -365,11 +381,20 @@ public class AddReservation extends JFrame implements ActionListener {
 
             balance.setText(bd.toString());
 
-            resInsert.append("INSERT INTO Reservations (customer_id, price, balance, route_num, day, time, train) VALUES ('");
-            resInsert.append(customer_id.getText() + "', '" + price.getText() + "', '" + Double.toString(remainingBal) + "', '");
-            resInsert.append(route.getText() + "', '" + day.getText() + "' , '" + time.getText() + "' , '" + trainNumber.getText() + "');");
+            Boolean adjustment = false;
+            String adjSelected = orderByList.getSelectedItem().toString();
+            if (adjSelected.equals("Yes")){
+                adjustment = true;
+            } else if (adjSelected.equals("No")){
+                adjustment = false;
+            }
 
-            //System.out.println(resInsert.toString());
+            resInsert.append("INSERT INTO Reservations (customer_id, price, balance, route_num, day, time, train, no_adjust, start_station, end_station) VALUES ('");
+            resInsert.append(customer_id.getText() + "', '" + price.getText() + "', '" + Double.toString(remainingBal) + "', '");
+            resInsert.append(route.getText() + "', '" + day.getText() + "' , '" + time.getText() + "' , '" + trainNumber.getText() + "' , '");
+            resInsert.append(adjustment.toString() + "' , '" + startA.getText() + "' , '" + endB.getText() + "');");
+
+            System.out.println(resInsert.toString());
 
             StringBuilder returnQuery = new StringBuilder();
             returnQuery.append("SELECT reserv_no FROM Reservations WHERE customer_id = '" + customer_id.getText() + "' AND ");
