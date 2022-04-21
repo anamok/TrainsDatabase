@@ -220,7 +220,7 @@ $$;
 
 --select * from fewestStationsFunctionality; -- used for functionality, do not call
 
-select * from fewestStationsView; -- used to get return screen for fewest stations
+--select * from fewestStationsView; -- used to get return screen for fewest stations
 
 
 
