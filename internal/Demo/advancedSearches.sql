@@ -179,27 +179,38 @@ SELECT * FROM search_same_stations_dif_stops;
 
 -- advanced search e
 -- find any stations through which all trains pass through
-DROP VIEW trains_and_stations;
-CREATE VIEW trains_and_stations AS
+-- another weird one: each station has 350 distinct train passes through, and
+-- there are 350 trains in total. thus this will return all stations in the result
+CREATE OR REPLACE VIEW all_trains_for_each_station AS
     SELECT station_id, train_id
     FROM Route_Schedules, RouteInclude;
 
-DROP VIEW all_trains;
-CREATE VIEW all_trains AS
+SELECT * FROM all_trains_for_each_station;
+
+CREATE OR REPLACE VIEW all_trains AS
     SELECT train_id FROM Trains;
 
-DROP VIEW stations_passed_by_all_trains;
-CREATE VIEW stations_passed_by_all_trains AS
-    SELECT * FROM trains_and_stations AS x
-    WHERE NOT EXISTS (
-        (SELECT y.train_id FROM all_trains AS y)
-        EXCEPT
-        (SELECT z.train_id FROM trains_and_stations AS z
-            WHERE z.station_id = x.station_id)
-        );
+SELECT * FROM all_trains;
+
+CREATE OR REPLACE VIEW stations_with_train_count AS
+    SELECT station_id, count(DISTINCT train_id)
+    FROM all_trains_for_each_station
+    GROUP BY station_id;
+
+SELECT * FROM stations_with_train_count;
+
+-- DROP VIEW stations_passed_by_all_trains;
+-- CREATE VIEW stations_passed_by_all_trains AS
+--     SELECT * FROM trains_and_stations AS x
+--     WHERE NOT EXISTS (
+--         (SELECT y.train_id FROM all_trains AS y)
+--         EXCEPT
+--         (SELECT z.train_id FROM trains_and_stations AS z
+--             WHERE z.station_id = x.station_id)
+--         );
 
 -- this line takes forever to run, might need to check the logic of the view above
-SELECT DISTINCT station_id FROM stations_passed_by_all_trains;
+-- SELECT DISTINCT station_id FROM stations_passed_by_all_trains;
 
 -- advanced search f
 -- find all trains that do not stop at a specific station
@@ -209,8 +220,7 @@ SELECT DISTINCT station_id FROM stations_passed_by_all_trains;
 -- set difference always returns an empty set)
 
 -- trains that DO stop at station 25
-DROP VIEW trains_do_stop;
-CREATE VIEW trains_do_stop AS
+CREATE OR REPLACE VIEW trains_do_stop AS
     SELECT DISTINCT train_id
     FROM Route_Schedules, RouteInclude
     WHERE station_id = 25
@@ -226,10 +236,62 @@ EXCEPT
 -- be returned as a result of a 50% search
 
 -- need help with this one...
-SELECT * FROM RouteInclude;
-SELECT count(station_id) FROM RouteInclude WHERE route_id = 22;
-SELECT count(station_id) FROM RouteInclude WHERE route_id = 22 AND stop = TRUE;
 
+CREATE OR REPLACE VIEW count_stop AS
+    SELECT route_id, count(stop) AS stopped FROM routeinclude
+    WHERE stop = true
+    GROUP BY route_id;
+
+CREATE OR REPLACE VIEW count_pass AS
+    SELECT route_id, count(stop) AS passed FROM routeinclude
+    GROUP BY route_id;
+
+CREATE OR REPLACE VIEW routes_with_stops_percentage AS
+    SELECT * FROM count_pass NATURAL JOIN count_stop;
+
+DROP TABLE pass_and_stop_for_routes;
+CREATE TABLE pass_and_stop_for_routes (
+    route_id INTEGER,
+    pass INTEGER,
+    stop INTEGER,
+    percent DOUBLE PRECISION DEFAULT -1
+);
+
+INSERT INTO pass_and_stop_for_routes (route_id, pass, stop)
+SELECT * FROM routes_with_stops_percentage;
+
+CREATE OR REPLACE PROCEDURE calc_percentage() AS
+$$
+    DECLARE
+        curr_row RECORD;
+    BEGIN
+
+        FOR curr_row IN SELECT * FROM routes_with_stops_percentage
+        LOOP
+            UPDATE pass_and_stop_for_routes
+            SET percent = (curr_row.stopped / curr_row.passed)
+            WHERE route_id = curr_row.route_id;
+        END LOOP;
+
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION find_routes_with_stops_percentage(num INTEGER)
+RETURNS SETOF RECORD AS
+$$
+    BEGIN
+
+        CALL calc_percentage();
+        RETURN QUERY
+            SELECT * FROM pass_and_stop_for_routes
+            WHERE percent >= (num / 100);
+
+    END;
+$$ LANGUAGE plpgsql;
+
+-- break down the procedure:
+-- procedure: calculate percent & update the table
+-- function: accept a num, find the matching rows, return
 
 -- display the schedule of a route
 -- for a specific route, list the days of departure, departure hours and trains that run it
