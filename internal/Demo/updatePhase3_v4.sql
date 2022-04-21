@@ -61,3 +61,21 @@ $$;
 -- SELECT * FROM stop_seatcount;
 -- SELECT * FROM tickets;
 -- SELECT * FROM trains;
+
+
+
+-- Create a trigger called line_disruption that adjusts all the
+-- tickets to the immediate next line when a line is closed due
+-- to an accident or maintenance, unless the customer has specified
+-- no substitutions/adjustments in which case the ticket is cancelled.
+
+-- add no adjustments attribute to reservations
+ALTER TABLE reservations
+ADD no_adjust boolean,  -- reads true if the customer has specified no adjustments
+ADD start_station INTEGER,
+ADD end_station INTEGER;
+
+--SELECT * from reservations;
+--SELECT * from Trains;
+--SELECT * from lineinclude;
+--SELECT * from stop_seatcount;
