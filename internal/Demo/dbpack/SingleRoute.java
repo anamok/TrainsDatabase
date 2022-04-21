@@ -98,12 +98,13 @@ public class SingleRoute extends JFrame implements ActionListener {
         String[] searchParameters = {"Lowest Price", "Shortest Time", "Fewest Stops", "Fewest Stations"};
         orderByList = new JComboBox<String>();
 
+
         for (int i = 0; i < searchParameters.length; i++){
             orderByList.addItem(searchParameters[i]);
         }
 
         orderByList.setBackground(Color.BLACK);
-        orderByList.setBackground(Color.WHITE);
+        orderByList.setForeground(Color.WHITE);
         orderByList.setFont(new Font("Courier New", Font.BOLD, 20));
 
         startA = new JTextField();

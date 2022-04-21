@@ -104,7 +104,7 @@ public class ComboRoute extends JFrame implements ActionListener {
         }
 
         orderByList.setBackground(Color.BLACK);
-        orderByList.setBackground(Color.WHITE);
+        orderByList.setForeground(Color.WHITE);
         orderByList.setFont(new Font("Courier New", Font.BOLD, 20));
 
         startA = new JTextField();
