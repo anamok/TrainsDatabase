@@ -134,29 +134,26 @@ returns SETOF record
 language plpgsql AS $$
 BEGIN
 
-    CREATE OR REPLACE VIEW trains_and_stations AS
+    CREATE OR REPLACE VIEW all_trains_for_each_station AS
     SELECT station_id, train_id
     FROM Route_Schedules, RouteInclude;
 
     CREATE OR REPLACE VIEW all_trains AS
     SELECT train_id FROM Trains;
 
-    CREATE OR REPLACE VIEW stations_passed_by_all_trains AS
-    SELECT * FROM trains_and_stations AS x
-    WHERE NOT EXISTS (
-        (SELECT y.train_id FROM all_trains AS y)
-        EXCEPT
-        (SELECT z.train_id FROM trains_and_stations AS z
-            WHERE z.station_id = x.station_id)
-        );
+    CREATE OR REPLACE VIEW stations_with_train_count AS
+    SELECT station_id, count(DISTINCT train_id)
+    FROM all_trains_for_each_station
+    GROUP BY station_id;
 
     RETURN QUERY
-    SELECT DISTINCT station_id FROM stations_passed_by_all_trains;
+    SELECT station_id FROM stations_with_train_count
+    WHERE count = 350;
 
 END;
 $$;
 
---SELECT * from advancedSearchE() AS f(station_id int);
+-- SELECT * from advancedSearchE() AS f(station_id int);
 
 
 -- advanced search f
@@ -167,17 +164,15 @@ $$;
 -- set difference always returns an empty set)
 
 CREATE OR REPLACE FUNCTION advancedSearchF(
-    -- need to add station input integer
+    station INTEGER
 )
 returns SETOF record
 language plpgsql AS $$
 BEGIN
     CREATE OR REPLACE VIEW trains_do_stop AS
-    SELECT DISTINCT train_id
-    FROM Route_Schedules, RouteInclude
-    WHERE station_id = 25
-      AND stop = TRUE;
-    -- all_trains - trains_do_stop
+        SELECT DISTINCT train_id
+        FROM Route_Schedules, RouteInclude
+        WHERE station_id = station AND stop = TRUE;
 
     RETURN QUERY
     (SELECT train_id FROM Trains)
