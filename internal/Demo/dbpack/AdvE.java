@@ -239,8 +239,6 @@ public class AdvE extends JFrame implements ActionListener  {
                 } while (i < 10);
             }             
         }
-
-
     }
 
 

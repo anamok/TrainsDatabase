@@ -24,7 +24,7 @@ public class ImportAllText {
 		String attributeReturnString = null;
 		
 		//parse file
-		String file = "AllData.txt";
+		String file = "/Users/qinnuoli/Desktop/CS1555_CostaExpress/internal/Demo/AllData.txt";
         BufferedReader bufferedReader;
 
         bufferedReader = new BufferedReader(new FileReader(file));

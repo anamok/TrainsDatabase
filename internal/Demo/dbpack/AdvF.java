@@ -185,8 +185,7 @@ public class AdvF extends JFrame implements ActionListener {
             connectionDB();
 
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * from advancedSearchA('" + day.getText() + "'::varchar, '");
-            sb.append(time.getText() + "'::time, " + station.getText() + ") AS f(train_id int, route_id int);");
+            sb.append("SELECT * from advancedSearchF() AS f(train_id int);");
 
             System.out.println(sb.toString());
             resultSet = null;
@@ -205,27 +204,26 @@ public class AdvF extends JFrame implements ActionListener {
             returnText.setText("");
 
             String returnTrain = "error";
-            String returnRoute = "error";
     
             
             int i = 0;
+
             do {
                 try{
                     if (resultSet.next() == false){
+                        returnText.setText("Search returns empty results: All trains pass through this station.");
                         break;
                     }
                     //resultSet.next();
-                    returnRoute = resultSet.getString("route_id");
                     returnTrain = resultSet.getString("train_id");
 
                 } catch (SQLException r){
                         System.out.println(r);
                 }
                     
-                    String str1 = String.format("%-7s|", returnRoute);
-                    String str2 = String.format("%-5s\n", returnTrain);
+                    String str = String.format("%-5s\n", returnTrain);
 
-                    returnText.append(str1 + str2); 
+                    returnText.append(str); 
                     i++;
             } while (i < 10);
             
@@ -234,7 +232,6 @@ public class AdvF extends JFrame implements ActionListener {
             SearchDatabase agentS = new SearchDatabase(guiPush, advfCenter, passwordp, userp);
         } else if (source == nextButton) {
             int i = 0;
-            String returnRoute = "error";
             String returnTrain = "error";
 
             if (resultSet != null){
@@ -246,21 +243,17 @@ public class AdvF extends JFrame implements ActionListener {
                         }
                         resultSet.next();
 
-                        returnRoute = resultSet.getString("route_id");
                         returnTrain = resultSet.getString("train_id");
                         } catch (SQLException r){
                             System.out.println(r);
                         }
-    
-                        String str1 = String.format("%-7s|", returnRoute);
-                        String str2 = String.format("%-5s\n", returnTrain);
-    
-                        returnText.append(str1 + str2); 
+
+                        String str = String.format("%-5s\n", returnTrain);
+
+                        returnText.append(str); 
                         i++;
                 } while (i < 10);
             }
-
-            
         }
 
 

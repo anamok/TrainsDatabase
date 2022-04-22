@@ -179,7 +179,7 @@ end;
 $$;
 
 -- RUN THIS
-CALL rtAB_comboMatch();
+-- CALL rtAB_comboMatch();
 
 -- routea stops at station a and the layover_station
 -- routeb stops at the layover_station and station b

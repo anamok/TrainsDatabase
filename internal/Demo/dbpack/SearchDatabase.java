@@ -176,6 +176,8 @@ public class SearchDatabase extends JFrame implements ActionListener {
         advSearchCButton.addActionListener(this);
         advSearchDButton.addActionListener(this);
         advSearchEButton.addActionListener(this);
+        advSearchFButton.addActionListener(this);
+        advSearchGButton.addActionListener(this);
         advSearchHButton.addActionListener(this);
         advSearchIButton.addActionListener(this);
         backButton.addActionListener(this);

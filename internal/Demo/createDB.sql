@@ -140,6 +140,7 @@ CREATE TABLE Customers (
     CONSTRAINT Customers_PK PRIMARY KEY(customer_id)
 );
 
+DROP TABLE IF EXISTS Clock;
 CREATE TABLE Clock (
     p_date TIMESTAMP,
 
@@ -155,4 +156,3 @@ CREATE TABLE Tickets (
 --    CONSTRAINT Tickets_FK_Reserv FOREIGN KEY(reserv_no) REFERENCES Reservations(reserv_no)
 --       ON UPDATE CASCADE ON DELETE CASCADE
 );
-
