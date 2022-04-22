@@ -221,7 +221,7 @@ public class SearchDatabase extends JFrame implements ActionListener {
         }  else if (source == advSearchHButton) {
             AdvH newsearcH = new AdvH(guiPush, searchCenter, passwordp, userp);
         }  else if (source == advSearchIButton) {
-
+            AdvI newsearcH = new AdvI(guiPush, searchCenter, passwordp, userp);
         }  else if (source == backButton){
             AgentScreen agentS = new AgentScreen(guiPush, searchCenter, passwordp, userp);
         }
