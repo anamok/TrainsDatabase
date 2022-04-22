@@ -276,7 +276,7 @@ $$
     END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION find_routes_with_stops_percentage(num INTEGER)
+CREATE OR REPLACE FUNCTION advancedSearchG(num INTEGER)
 RETURNS SETOF RECORD AS
 $$
     BEGIN
@@ -293,6 +293,7 @@ $$ LANGUAGE plpgsql;
 -- procedure: calculate percent & update the table
 -- function: accept a num, find the matching rows, return
 
+-- advanced search h
 -- display the schedule of a route
 -- for a specific route, list the days of departure, departure hours and trains that run it
 SELECT * FROM Route_Schedules

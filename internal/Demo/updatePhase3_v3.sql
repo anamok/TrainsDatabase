@@ -189,17 +189,66 @@ $$;
 -- stations from which they pass (eg route passing through 10 stops will stop at 5 will
 -- be returned as a result of a 50% search
 
--- CREATE OR REPLACE FUNCTION advancedSearchG()
--- returns SETOF record
--- language plpgsql AS $$
--- BEGIN
+CREATE OR REPLACE VIEW count_stop AS
+    SELECT route_id, count(stop) AS stopped FROM routeinclude
+    WHERE stop = true
+    GROUP BY route_id;
 
+CREATE OR REPLACE VIEW count_pass AS
+    SELECT route_id, count(stop) AS passed FROM routeinclude
+    GROUP BY route_id;
 
-    -- not yet implemented
+CREATE OR REPLACE VIEW routes_with_stops_percentage AS
+    SELECT * FROM count_pass NATURAL JOIN count_stop;
 
+DROP TABLE pass_and_stop_for_routes;
+CREATE TABLE pass_and_stop_for_routes (
+    route_id INTEGER,
+    pass INTEGER,
+    stop INTEGER,
+    percent NUMERIC DEFAULT -1.00
+);
 
--- END;
--- $$;
+INSERT INTO pass_and_stop_for_routes (route_id, pass, stop)
+SELECT * FROM routes_with_stops_percentage;
+
+-- need to do double decision division so that percent could be 0.55 or the like
+-- maybe 0.55 * 100, so that can directly compare to `num`
+CREATE OR REPLACE PROCEDURE calc_percentage() AS
+$$
+    DECLARE
+        curr_row RECORD;
+        div_result NUMERIC;
+    BEGIN
+
+        FOR curr_row IN SELECT * FROM routes_with_stops_percentage
+        LOOP
+            SELECT (CAST(curr_row.stopped AS NUMERIC) / curr_row.passed) INTO div_result;
+            SELECT round(div_result, 2) INTO div_result;
+            UPDATE pass_and_stop_for_routes
+            SET percent = div_result
+            WHERE route_id = curr_row.route_id;
+        END LOOP;
+
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION advancedSearchG(num INTEGER)
+RETURNS SETOF RECORD AS
+$$
+    BEGIN
+
+        CALL calc_percentage();
+        RETURN QUERY
+            SELECT route_id, percent FROM pass_and_stop_for_routes
+            WHERE (percent * 100) >= num;
+
+    END;
+$$ LANGUAGE plpgsql;
+
+-- select * from advancedSearchG(50) AS f(route_id int, percent numeric);
+
+-- SELECT * from advancedSearchG() AS f(route_id int, percent double precision);
 
 -- advanced search h
 -- display the schedule of a route
