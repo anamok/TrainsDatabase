@@ -20,6 +20,7 @@ SRC= dbpack/CostaExpress.java	\
 	dbpack/AdvF.java	\
 	dbpack/ImportAllText.java	\
 	dbpack/AdvG.java	\
+	dbpack/AdvH.java	\
 
 CLS= $(SRC:.java=.class)
 

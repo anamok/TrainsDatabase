@@ -268,7 +268,7 @@ BEGIN
 END;
 $$;
 
---SELECT * from advancedSearchh(590) AS f(routeid int, day varchar, time time without time zone, train_id int);
+-- SELECT * from advancedSearchh(590) AS f(routeid int, day varchar, time time without time zone, train_id int);
 
 -- advanced search i
 -- find the availability of a route at every stop on a specific day and time
