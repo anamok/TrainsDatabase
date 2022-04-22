@@ -8,9 +8,9 @@ import java.sql.*;
 import java.util.Properties;
 
 
-public class AdvF extends JFrame implements ActionListener {
+public class AdvG extends JFrame implements ActionListener {
 
-    JPanel advfCenter = new JPanel(new BorderLayout());
+    JPanel advgCenter = new JPanel(new BorderLayout());
     JButton searchButton = new JButton("Search");
     JButton backButton = new JButton("Back");
     JButton nextButton = new JButton("Next >");
@@ -18,7 +18,7 @@ public class AdvF extends JFrame implements ActionListener {
     JPanel guiPush;
     Statement st;
 
-    JTextField station;
+    JTextField percentage;
 
     
     ResultSet resultSet;
@@ -32,7 +32,7 @@ public class AdvF extends JFrame implements ActionListener {
 
     Connection conn;
 
-    public AdvF(JPanel gui, JPanel center, String password, String user){
+    public AdvG(JPanel gui, JPanel center, String password, String user){
         passwordp = password;
         userp = user;
 
@@ -40,14 +40,14 @@ public class AdvF extends JFrame implements ActionListener {
 
         center.setVisible(false);
 
-        advfCenter.setBackground(Color.BLACK);
-        advfCenter.setBorder(new EmptyBorder(0, 20, 0, 20));
-        gui.add(advfCenter, BorderLayout.CENTER);
+        advgCenter.setBackground(Color.BLACK);
+        advgCenter.setBorder(new EmptyBorder(0, 20, 0, 20));
+        gui.add(advgCenter, BorderLayout.CENTER);
 
         JPanel squish = new JPanel();
         squish.setBackground(Color.BLACK);
 
-        JLabel headerMessage = new JLabel("Advanced Search (F)");
+        JLabel headerMessage = new JLabel("Advanced Search (G)");
 
         headerMessage.setFont(new Font("Courier New", Font.BOLD, 40));
         headerMessage.setForeground(Color.WHITE);
@@ -58,10 +58,10 @@ public class AdvF extends JFrame implements ActionListener {
         topMessage.add(headerMessage);
         topMessage.setBackground(Color.BLACK);
 
-        JLabel ins = new JLabel("Find all trains that do not stop at a specific station.", SwingConstants.CENTER);
+        JLabel ins = new JLabel("Find routes that stop at least at XX% of the stations they visit, where XX number from 10 to 90", SwingConstants.CENTER);
         topMessage.add(ins);
 
-        txtheader = new JTextArea("Train_ID: ");
+        txtheader = new JTextArea("Route_ID: | Stops Percentage: ");
         txtheader.setBounds(10,30,200,200);
         txtheader.setBorder(new EmptyBorder(15, 10, 0, 0));
         txtheader.setBackground(Color.BLUE);
@@ -76,15 +76,15 @@ public class AdvF extends JFrame implements ActionListener {
         addActionEvent();
 
 
-        JLabel stA = new JLabel("Station(as ID):", SwingConstants.RIGHT);
+        JLabel num = new JLabel("Percentage (XX):", SwingConstants.RIGHT);
 
-        textStyle(stA);
+        textStyle(num);
         textStyle(ins);
         ins.setFont(new Font("Courier New", Font.BOLD, 18));
 
-        station = new JTextField();
+        percentage = new JTextField();
 
-        formStyle(station);
+        formStyle(percentage);
 
         JPanel formPanel = new JPanel(new GridLayout(0,2));
         //add to form panel
@@ -96,8 +96,8 @@ public class AdvF extends JFrame implements ActionListener {
        
         formPanel.add(squish16);
         formPanel.add(nextButton);
-        formPanel.add(stA);
-        formPanel.add(station);
+        formPanel.add(num);
+        formPanel.add(percentage);
         formPanel.add(backButton);
         formPanel.add(searchButton);
 
@@ -111,11 +111,11 @@ public class AdvF extends JFrame implements ActionListener {
         returnText.setForeground(Color.WHITE);
         returnText.setFont(new Font("Courier New", Font.BOLD, 20));
 
-        advfCenter.add(topMessage, BorderLayout.PAGE_START);
-        advfCenter.add(returnText, BorderLayout.CENTER);
+        advgCenter.add(topMessage, BorderLayout.PAGE_START);
+        advgCenter.add(returnText, BorderLayout.CENTER);
 
         //topMessage.add(formPanel);
-        advfCenter.add(formPanel, BorderLayout.PAGE_END);
+        advgCenter.add(formPanel, BorderLayout.PAGE_END);
     }
 
     private static void textStyle(JLabel b){
@@ -183,7 +183,8 @@ public class AdvF extends JFrame implements ActionListener {
             connectionDB();
 
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * from advancedSearchF() AS f(train_id int);");
+            sb.append("SELECT route_id, percent from advancedSearchG(" + percentage.getText() + "::integer");
+            sb.append(") AS f(route_id int, percent numeric);");
 
             System.out.println(sb.toString());
             resultSet = null;
@@ -201,7 +202,8 @@ public class AdvF extends JFrame implements ActionListener {
             
             returnText.setText("");
 
-            String returnTrain = "error";
+            String returnRoute = "error";
+            String returnPercent = "error";
     
             
             int i = 0;
@@ -209,28 +211,31 @@ public class AdvF extends JFrame implements ActionListener {
             do {
                 try{
                     if (resultSet.next() == false){
-                        returnText.setText("Search returns empty results: All trains pass through this station.");
+                        returnText.setText("Search returns empty results: No routes found with this stops percentage.");
                         break;
                     }
                     //resultSet.next();
-                    returnTrain = resultSet.getString("train_id");
+                    returnRoute = resultSet.getString("route_id");
+                    returnPercent = resultSet.getString("percent");
 
                 } catch (SQLException r){
                         System.out.println(r);
                 }
                     
-                    String str = String.format("%-5s\n", returnTrain);
+                    String str1 = String.format("%-7s|", returnRoute);
+                    String str2 = String.format("%-5s\n", returnPercent);
 
-                    returnText.append(str); 
+                    returnText.append(str1 + str2); 
                     i++;
             } while (i < 10);
             
 
         } else if (source == backButton){
-            SearchDatabase agentS = new SearchDatabase(guiPush, advfCenter, passwordp, userp);
+            SearchDatabase agentS = new SearchDatabase(guiPush, advgCenter, passwordp, userp);
         } else if (source == nextButton) {
             int i = 0;
-            String returnTrain = "error";
+            String returnRoute = "error";
+            String returnPercent = "error";
 
             if (resultSet != null){
                 returnText.setText("");
@@ -241,14 +246,17 @@ public class AdvF extends JFrame implements ActionListener {
                         }
                         resultSet.next();
 
-                        returnTrain = resultSet.getString("train_id");
+                        returnRoute = resultSet.getString("route_id");
+                        returnPercent = resultSet.getString("percent");
+
                         } catch (SQLException r){
                             System.out.println(r);
                         }
 
-                        String str = String.format("%-5s\n", returnTrain);
-
-                        returnText.append(str); 
+                        String str1 = String.format("%-7s|", returnRoute);
+                        String str2 = String.format("%-5s\n", returnPercent);
+    
+                        returnText.append(str1 + str2); 
                         i++;
                 } while (i < 10);
             }
