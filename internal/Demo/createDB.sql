@@ -106,6 +106,7 @@ CREATE TABLE Route_Schedules (
 --         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS Reservations;
 CREATE TABLE Reservations (
     reserv_no SERIAL,
     customer_id INTEGER,
@@ -120,6 +121,7 @@ CREATE TABLE Reservations (
     day VARCHAR(32),
     time VARCHAR(32),
     train INTEGER,
+    valid BOOLEAN, -- invalid when reservation is canceled
 
     CONSTRAINT Reservations_PK PRIMARY KEY(reserv_no)
 );
@@ -142,9 +144,10 @@ CREATE TABLE Customers (
 
 DROP TABLE IF EXISTS Clock;
 CREATE TABLE Clock (
+    clock_key INTEGER,
     p_date TIMESTAMP,
 
-    CONSTRAINT Clock_PK PRIMARY KEY(p_date)
+    CONSTRAINT Clock_PK PRIMARY KEY(clock_key)
 );
 
 DROP TABLE IF EXISTS Tickets;
