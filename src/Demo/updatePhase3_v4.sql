@@ -4,7 +4,10 @@ CREATE OR REPLACE PROCEDURE exportData()
 language plpgsql AS $$
 begin
 
-COPY Customers TO 'C:\Users\Sam\Desktop\CS1555_CostaExpress\export\Customers.txt' DELIMITER '|' ; --need to change the file path depending on your system
+-- the following must be changed depending on the file path of the system. The export folder must allow write access
+-- to either PostgreSQL and/or the user running the server.
+-- The example presented is for Windows, but Mac users should change the directory to /tmp
+COPY Customers TO 'C:\Users\Sam\Desktop\CS1555_CostaExpress\export\Customers.txt' DELIMITER '|' ; 
 COPY Clock TO 'C:\Users\Sam\Desktop\CS1555_CostaExpress\export\Clock.txt' DELIMITER '|' ;
 COPY lineinclude TO 'C:\Users\Sam\Desktop\CS1555_CostaExpress\export\LineInclude.txt' DELIMITER '|' ;
 COPY railroad_lines TO 'C:\Users\Sam\Desktop\CS1555_CostaExpress\export\railroad_lines.txt' DELIMITER '|' ;
