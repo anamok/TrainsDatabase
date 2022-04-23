@@ -7,6 +7,7 @@ begin
 -- the following must be changed depending on the file path of the system. The export folder must allow write access
 -- to either PostgreSQL and/or the user running the server.
 -- The example presented is for Windows, but Mac users should change the directory to /tmp
+-- and restart the server to ensure changes were applied.
 COPY Customers TO 'C:\Users\Sam\Desktop\CS1555_CostaExpress\export\Customers.txt' DELIMITER '|' ; 
 COPY Clock TO 'C:\Users\Sam\Desktop\CS1555_CostaExpress\export\Clock.txt' DELIMITER '|' ;
 COPY lineinclude TO 'C:\Users\Sam\Desktop\CS1555_CostaExpress\export\LineInclude.txt' DELIMITER '|' ;
@@ -52,11 +53,11 @@ $$;
 
 -- CALL deleteData();
 
- SELECT * FROM Customers;
+-- SELECT * FROM Customers;
 -- SELECT * FROM Clock;
 -- SELECT * FROM lineinclude;
 -- SELECT * FROM railroad_lines;
-   SELECT * FROM reservations;
+-- SELECT * FROM reservations;
 -- SELECT * FROM route_schedules;
 -- SELECT * FROM routeinclude;
 -- SELECT * FROM routes;
