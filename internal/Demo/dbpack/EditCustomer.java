@@ -346,7 +346,6 @@ public class EditCustomer extends JFrame implements ActionListener {
 				System.out.println(setTextE);
 			}
 
-
 			// close connection
 			try{
 				conn.close();
@@ -380,15 +379,6 @@ public class EditCustomer extends JFrame implements ActionListener {
 					System.out.println(stE);
 				}
 			}
-			// StringBuilder upd = new StringBuilder();
-			// COME BACK HERE AFTER TESTING
-			//upd.append("UPDATE Customers SET first_name = '" + inputCustomerFN.getText() + "', ");
-			//upd.append("last_name = '" + inputCustomerLN.getText() + "', ");
-			//upd.append("email = '" + inputCustomerEM.getText() + "', ");
-			//upd.append("phone_no = '" + returnedCustomerPN.getText() + "', ");
-			//upd.append("street = '" + returnedCustomerST.getText() + "', ");
-			//upd.append("town = '" + returnedCustomerTWN.getText() + ", ");
-			//upd.append("postalcode = '" + returnedCustomerPC.getText() + ", ");
 
 			// close connection
 			try{
