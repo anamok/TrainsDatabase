@@ -89,7 +89,7 @@ public class SearchDatabase extends JFrame implements ActionListener {
         textStyle(advSrch);
 
         //dropdown list
-        String[] searchStrings = {"Customer Reservations", "Single Route", "Combo Route"};
+        String[] searchStrings = {"Single Route", "Combo Route"};
         selectList = new JComboBox<String>();
 
         for (int i = 0; i< searchStrings.length; i++){
@@ -189,10 +189,7 @@ public class SearchDatabase extends JFrame implements ActionListener {
         if (source == selectButton) {
             String searchOptionSelected = selectList.getSelectedItem().toString();
 
-            if (searchOptionSelected.equals("Customer Reservations")) {
-                System.out.println("customer res selected");
-
-            } else if (searchOptionSelected.equals("Single Route")) {
+           if (searchOptionSelected.equals("Single Route")) {
                 System.out.println("single rt selected");
 
                 SingleRoute newSingleRt = new SingleRoute(guiPush, searchCenter, passwordp, userp); ///////// uncomment when testing single route
