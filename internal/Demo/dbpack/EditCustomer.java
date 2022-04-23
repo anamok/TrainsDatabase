@@ -309,8 +309,6 @@ public class EditCustomer extends JFrame implements ActionListener {
 			} else {
 				System.out.println("Empty fields");
 			}
-
-			// check
 			// System.out.println(sb.toString());
 
 			// create a ResultSet to hold the returned attributes and execute a query with the try/catch block record results.

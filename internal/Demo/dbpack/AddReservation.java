@@ -283,8 +283,6 @@ public class AddReservation extends JFrame implements ActionListener {
         catch (SQLException c){
             System.out.println(c.toString());
         }
-        
-         
     }
 
     public void actionPerformed(ActionEvent e)  {
@@ -372,6 +370,33 @@ public class AddReservation extends JFrame implements ActionListener {
             //need to add db connection
             connectionDB();
 
+            StringBuilder custCheck = new StringBuilder();
+            custCheck.append("SELECT customer_id FROM Customers WHERE customer_id = '" + customer_id.getText() + "';");
+            // create a ResultSet to hold the returned attributes and execute a query with the try/catch block record results
+			ResultSet custExistsResultSet = null;
+			try {
+				try {
+					custExistsResultSet = st.executeQuery(custCheck.toString());
+				} catch (NullPointerException np) {
+					System.out.println(np);
+				}
+			} catch (SQLException sq) {
+				System.out.println(sq);
+			}
+
+			// loop through the resultSet and check if such customer exists
+            boolean custExists = false;
+			try {
+				while (custExistsResultSet.next()) {
+					custExists = true;
+				}
+			} catch (SQLException setTextE) {
+				System.out.println(setTextE);
+			}
+            
+            // if such customer exists, proceed
+            if (custExists) {
+            
             StringBuilder resInsert = new StringBuilder();
 
             double remainingBal = Double.valueOf(price.getText()) - Double.valueOf(totalPaid.getText());
@@ -473,8 +498,6 @@ public class AddReservation extends JFrame implements ActionListener {
                 }
 
                 ticket.setText(retTick);
-
-
             }
 
             try{
@@ -482,15 +505,7 @@ public class AddReservation extends JFrame implements ActionListener {
             } catch (SQLException df){
                 System.out.println(df);
             }
-            
-
-
-
-
         }
-
-
-        
+        } // if custExists ends
     }
-
 }

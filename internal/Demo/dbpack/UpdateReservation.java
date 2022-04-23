@@ -12,10 +12,12 @@ import java.util.Properties;
 
 /* # 4 on pdf
    Thoughts on update reservation:
-   The only two things that would really need updated would be to either remove the reservation
-   completely or update the balance of the reservation. If anything other than the payment 
-   needs to be updated, a new reservation should instead be generated.. Assuming the balance reaches
-   0, a new ticket should be generated here. 
+   We allow changing the name on the reservation (and automatically updating the customer table) and
+   the payment on the reservation. After entering the input payment and reservation number, they cannot be
+   edited, instead you must start a new updateReservation session.
+
+   If anything other than the payment needs to be updated, a new reservation should instead be generated.. 
+   Assuming the balance after inputPayment reaches 0, a new ticket should be generated here. 
 
    We can make this easier by requiring the reservation id here. In the 'Search Database' part of the 
    program, we can get the reservation ID.. here, we're only updating or deleting. 
@@ -25,7 +27,7 @@ import java.util.Properties;
 
 //JFrame is the window, Action Listener is listening for the button 'press'
 public class UpdateReservation extends JFrame implements ActionListener {
-
+	int cust_id = 0;
 	// the following is just a blank square in the CENTER of the screen.
 	JPanel resEditCenter = new JPanel(new GridLayout(0,1));
 
@@ -139,7 +141,9 @@ public class UpdateReservation extends JFrame implements ActionListener {
 		returnedReservationBAL = new JTextField("xx");
 		returnedReservationBAL.setEditable(false);
 		returnedDay = new JTextField("xx");
+		returnedDay.setEditable(false);
 		returnedTime = new JTextField("xx"); 
+		returnedTime.setEditable(false);
 		returnedPrice = new JTextField("xx");
 		returnedPrice.setEditable(false);
 		returnedTicket = new JTextField("xx");
@@ -243,7 +247,6 @@ public class UpdateReservation extends JFrame implements ActionListener {
 
 	// Necessary for connection to db, I didn't write this, it's referenced from the recitation demos
 	// try/catch statements are separated for error tracing isolation
-	
 	public void connectionDB() {
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -271,33 +274,21 @@ public class UpdateReservation extends JFrame implements ActionListener {
 		}
 	} 
 
-	/* the following is an incomplete function that takes the button push
-	   and then does something depending on which option was selected.
-	   look at AddReservation.java to see how to implement each command
-
-	   you can use inputCustomerID.getText(Int/String/whatever) and inputCustomerID.setText(String)
-
-	   for reference, these are the JTextFields that need to be set/retrieved:
-	   inputReservationNumber;
-	   inputPayment;
-
-	   returnedCustomerID; // will need to return this as the customer name
-	   returnedReservationBAL; 
-	   returnedDay;
-	   returnedTime;
-	   returnedPrice;
-	   returnedTicket;
-	   returnedFname;
-	   returnedLname;
-
+	/* 
+		the following is a function that takes the button push
+		and then does something depending on which option was selected.
 	*/
 	
 	public void actionPerformed(ActionEvent e)  {
 		Object source = e.getSource();  
-
+		
 		if (source == getRButton) { // when agent 'clicks' this button, the program will:
 			// start db connection
 			connectionDB();
+
+			// lock inputs
+			inputReservationNumber.setEditable(false);
+			inputPayment.setEditable(false);
 
 			// PART 1 ****
 			// generate a string SELECT statement to get the reservation attributes of the inputReservation number
@@ -308,7 +299,7 @@ public class UpdateReservation extends JFrame implements ActionListener {
 				System.out.println("Empty field");
 			}
 			// check
-			System.out.println(sb.toString());
+			// System.out.println(sb.toString());
 
 			// create a ResultSet to hold the returned attributes and execute a query with the try/catch block record results
 			ResultSet resultSet = null;
@@ -322,7 +313,6 @@ public class UpdateReservation extends JFrame implements ActionListener {
 				System.out.println(sq);
 			}
 
-			int cust_id = 0;
 			String str = "";
 			// loop through the resultSet and setText in return fields that match attribute names.
 			try {
@@ -375,13 +365,12 @@ public class UpdateReservation extends JFrame implements ActionListener {
 			// create another SELECT statement to retrieve the customer's name using their id number
 			StringBuilder sbname = new StringBuilder();
 			sbname.append("SELECT first_name, last_name FROM Customers WHERE customer_id = '" + cust_id + "';");
-			System.out.println(sbname.toString());
+			// System.out.println("upper button select: " + sbname.toString());
 
 			// create a ResultSet to hold the returned attributes and execute a query with the try/catch block record results
 			ResultSet resultSetname = null;
 			try {
 				try {
-					st.executeQuery(sbname.toString());
 					resultSetname = st.executeQuery(sbname.toString());
 				} catch (NullPointerException np) {
 					System.out.println(np);
@@ -390,7 +379,7 @@ public class UpdateReservation extends JFrame implements ActionListener {
 				System.out.println(sq);
 			}
 
-			// loop through the resultSet and setText in return fields that match attribute names.
+			// loop through the resultSet and setText in return fields that match attribute names
 			try {
 				while (resultSetname.next()) {
 					returnedFname.setText(resultSetname.getString("first_name"));
@@ -409,17 +398,69 @@ public class UpdateReservation extends JFrame implements ActionListener {
 		} else if (source == saveRButton){    
 			// start db connection
 			connectionDB();
+			System.out.println(cust_id);
+			
+			// PART 1 ****
+			// check if first/last name was changed and update the customer table accordingly
+			StringBuilder custTableSel = new StringBuilder();
+			custTableSel.append("SELECT first_name, last_name FROM Customers WHERE customer_id = '" + cust_id + "';");
 
+			// create a ResultSet to hold the returned attributes and execute a query with the try/catch block record results
+			ResultSet resultSetname = null;
+			try {
+				try {
+					resultSetname = st.executeQuery(custTableSel.toString());
+				} catch (NullPointerException np) {
+					System.out.println(np);
+				}
+			} catch (SQLException sq) {
+				System.out.println(sq);
+			}
+
+			// loop through the resultSet and check if the first/last name was changed
+			boolean fNameChanged = false;
+			boolean lNameChanged = false;
+			try {
+				while (resultSetname.next()) {
+					if (!(resultSetname.getString("first_name")).equals(returnedFname.getText())) fNameChanged = true;
+					if (!(resultSetname.getString("last_name")).equals(returnedLname.getText())) lNameChanged = true;
+				}
+			} catch (SQLException setTextE) {
+				System.out.println(setTextE);
+			}
+
+			Statement nameSt = null;
+			try {
+				nameSt = conn.createStatement();
+				if (fNameChanged && lNameChanged) {
+					nameSt.addBatch("UPDATE Customers SET first_name = '" + returnedFname.getText() + "' WHERE customer_id = '" + cust_id + "'");
+					nameSt.addBatch("UPDATE Customers SET last_name = '" + returnedLname.getText() + "' WHERE customer_id = '" + cust_id + "'");
+					int[] recordsAffected = nameSt.executeBatch();
+				} else if (fNameChanged) {
+					nameSt.addBatch("UPDATE Customers SET first_name = '" + returnedFname.getText() + "' WHERE customer_id = '" + cust_id + "'");
+					int[] recordsAffected = nameSt.executeBatch();
+				} else if (lNameChanged) {
+					nameSt.addBatch("UPDATE Customers SET last_name = '" + returnedLname.getText() + "' WHERE customer_id = '" + cust_id + "'");
+					int[] recordsAffected = nameSt.executeBatch();
+				}
+			} catch (SQLException updE) {
+				System.out.println("Customer update failed: " + updE);
+			} finally {
+				try {
+					if (nameSt != null) nameSt.close();
+				} catch (SQLException stE) {
+					System.out.println(stE);
+				}
+			}
+
+			// PART 2 ****
 			Statement statement = null;
 			// generate and execute an batch UPDATE statement based on .getText for all attributes
 			try {
-				if (!(inputReservationNumber.getText().equals("") && inputPayment.getText().equals(""))) {
-					statement = conn.createStatement();
-					statement.addBatch("UPDATE Reservations SET day = '" + returnedDay.getText() + "' WHERE reserv_no = '" + inputReservationNumber.getText() + "'");
-					statement.addBatch("UPDATE Reservations SET time = '" + returnedTime.getText() + "' WHERE reserv_no = '" + inputReservationNumber.getText() + "'");
-					statement.addBatch("UPDATE Reservations SET balance = '" + returnedReservationBAL.getText() + "' WHERE reserv_no = '" + inputReservationNumber.getText() + "'");
-					int[] recordsAffected = statement.executeBatch();
-				}
+				statement = conn.createStatement();
+				statement.addBatch("UPDATE Reservations SET balance = '" + returnedReservationBAL.getText() + "' WHERE reserv_no = '" + inputReservationNumber.getText() + "'");
+				statement.addBatch("UPDATE Tickets SET ticket_no = '" + returnedTicket.getText() + "' WHERE reserv_no = '" + inputReservationNumber.getText() + "'");
+				int[] recordsAffected = statement.executeBatch();
 			} catch (SQLException updE) {
 				System.out.println(updE);
 			} finally {
@@ -436,10 +477,6 @@ public class UpdateReservation extends JFrame implements ActionListener {
 			if (returnedTicket.getText().equals("xx") && (Double.valueOf(returnedReservationBAL.getText()) == 0.0)) {
 				ins.append("INSERT INTO Tickets (reserv_no) VALUES ('" + inputReservationNumber.getText() + "');");
 				sel.append("SELECT ticket_no FROM Tickets WHERE reserv_no = '" + inputReservationNumber.getText() + "';");
-				// check
-				// System.out.println("Ins st: " + ins);
-				// check
-				// System.out.println("Sel st: " + sel);
 
 				// create a ResultSet to hold the returned attributes and execute a query with the try/catch block record results
 				ResultSet resultSetTic = null;
@@ -479,18 +516,43 @@ public class UpdateReservation extends JFrame implements ActionListener {
 			StringBuilder deleteRes = new StringBuilder();
 			deleteRes.append("DELETE FROM Reservations WHERE reserv_no = '" + inputReservationNumber.getText() + "';");
 
+			// check if ticket is present
+			StringBuilder ticket = new StringBuilder();
+			ticket.append("SELECT ticket_no FROM Tickets WHERE reserv_no = '" + inputReservationNumber.getText() + "';");
+
+			// create a ResultSet to hold the returned attributes and execute a query with the try/catch block record results
+			ResultSet resultSetTicket = null;
+			try {
+				try {
+					resultSetTicket = st.executeQuery(ticket.toString());
+				} catch (NullPointerException np) {
+					System.out.println(np);
+				}
+			} catch (SQLException sq) {
+				System.out.println(sq);
+			}
+
+			// loop through the resultSet and check if the first/last name was changed
+			boolean ticketPresent = false;
+			String myticket = "";
+			try {
+				while (resultSetTicket.next()) {
+					ticketPresent = true;
+					myticket = resultSetTicket.getString("ticket_no");
+				}
+			} catch (SQLException setTextE) {
+				System.out.println(setTextE);
+			}
+
 			// generate a statement to delete ticket where res# = res#
 			StringBuilder deleteTicket = new StringBuilder();
-			deleteTicket.append("DELETE FROM Tickets WHERE ticket_no = '" + returnedTicket.getText() + "';");
-
-			// check statements in datagrip
-			System.out.println("deleteRes st: " + deleteRes);
-			System.out.println("deleteTicket st: " + deleteTicket);
+			deleteTicket.append("DELETE FROM Tickets WHERE ticket_no = '" + myticket + "';");
+			// System.out.println("ticket present: " + ticketPresent);
 
 			// try/catch block to execute Update
 			try {
 				st.executeUpdate(deleteRes.toString());
-				if (deleteTicket.length() != 0) st.executeUpdate(deleteTicket.toString());
+				if (ticketPresent) st.executeUpdate(deleteTicket.toString());
 			} catch (SQLException sq) {
 				System.out.println(sq);
 			}
@@ -504,7 +566,7 @@ public class UpdateReservation extends JFrame implements ActionListener {
 			returnedTime.setText("deleted");
 			returnedPrice.setText("deleted");
 			returnedReservationBAL.setText("deleted");
-			if (deleteTicket.length() != 0) returnedTicket.setText("deleted");
+			if (ticketPresent) returnedTicket.setText("deleted");
 
 			// close connection
 			try{
