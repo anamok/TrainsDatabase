@@ -299,16 +299,15 @@ public class EditCustomer extends JFrame implements ActionListener {
 			StringBuilder sb = new StringBuilder();
 			// if we have a customer id, get the matching customer attributes for that line
 				// generate a string SELECT statement where customers.customerID = inputcustomerID
-			if (inputCustomerID.getText() != null) {
-				sb.append("SELECT * FROM Customers WHERE customer_id = '" + inputCustomerID.getText() + "'");
-			}
-			// if we have a firstname/lastname/email combination, get the matching customer attributes for that line
-				// generate a string SELECT statement ...
-			if (inputCustomerFN.getText() != null && inputCustomerLN.getText() != null && inputCustomerEM.getText() != null) {
+			if (!inputCustomerID.getText().equals("")) {
+				sb.append("SELECT * FROM Customers WHERE customer_id = '" + inputCustomerID.getText() + "';");
+			} else if (!(inputCustomerFN.getText().equals("") && inputCustomerLN.getText().equals("") && inputCustomerEM.getText().equals(""))) {
 				sb.append("SELECT * FROM Customers WHERE first_name = '" + inputCustomerFN.getText() + "' AND ");
 				sb.append("last_name = '" + inputCustomerLN.getText() + "' AND ");
 				sb.append("email = '" + inputCustomerEM.getText() + "';");
 				name_and_email = true;
+			} else {
+				System.out.println("Empty fields");
 			}
 
 			// check
@@ -324,32 +323,29 @@ public class EditCustomer extends JFrame implements ActionListener {
 					System.out.println(np);
 				}
 			} catch (SQLException sq) {
+				//System.out.println(sq);
 				System.out.println(sq);
 			}
 
-			String returnedID = "error";
+			// loop through the resultSet and setText in return fields that match attribute names.
 			try {
 				while (resultSet.next()) {
-					returnedID = resultSet.getString("customer_id");
+					if (name_and_email) {
+						inputCustomerID.setText(resultSet.getString("customer_id"));
+					} else {
+						inputCustomerFN.setText(resultSet.getString("first_name"));
+						inputCustomerLN.setText(resultSet.getString("last_name"));
+						inputCustomerEM.setText(resultSet.getString("email"));
+					}
+					returnedCustomerPN.setText(resultSet.getString("phone_no"));
+					returnedCustomerST.setText(resultSet.getString("street"));
+					returnedCustomerTWN.setText(resultSet.getString("town"));
+					returnedCustomerPC.setText(resultSet.getString("postalcode"));
 				}
-			} catch (SQLException resEmpty) {
-				System.out.println(resEmpty);
+			} catch (SQLException setTextE) {
+				System.out.println(setTextE);
 			}
 
-			// loop through the resultSet and setText in return fields that match attribute names.
-			while (resultSet.next()) {
-				if (name_and_email) {
-					inputCustomerID.setText(resultSet.getString("customer_id"));
-				} else {
-					inputCustomerFN.setText(resultSet.getString("first_name"));
-					inputCustomerLN.setText(resultSet.getString("last_name"));
-					inputCustomerEM.setText(resultSet.getString("email"));
-				}
-				returnedCustomerPN.setText(resultSet.getString("phone_no"));
-				returnedCustomerST.setText(resultSet.getString("street"));
-				returnedCustomerTWN.setText(resultSet.getString("town"));
-				returnedCustomerPC.setText(resultSet.getString("postalcode"));
-			}			
 
 			// close connection
 			try{
@@ -361,8 +357,8 @@ public class EditCustomer extends JFrame implements ActionListener {
 			// start db connection
 			connectionDB();
 
-			// generate and execute an batch UPDATE statement based on .getText for all attributes
 			Statement statement = null;
+			// generate and execute an batch UPDATE statement based on .getText for all attributes
 			try {
 				if (inputCustomerID.getText() != "" || inputCustomerID.getText() != null) {
 					statement = conn.createStatement();
@@ -375,8 +371,14 @@ public class EditCustomer extends JFrame implements ActionListener {
 					statement.addBatch("UPDATE Customers SET postalcode = '" + returnedCustomerPC.getText() + "' WHERE customer_id = '" + inputCustomerID.getText() + "'");
 					int[] recordsAffected = statement.executeBatch();
 				}
+			} catch (SQLException updE) {
+				System.out.println(updE);
 			} finally {
-				if (statement != null) statement.close();
+				try {
+					if (statement != null) statement.close();
+				} catch (SQLException stE) {
+					System.out.println(stE);
+				}
 			}
 			// StringBuilder upd = new StringBuilder();
 			// COME BACK HERE AFTER TESTING

@@ -388,6 +388,4 @@ public class UpdateReservation extends JFrame implements ActionListener {
             AgentScreen agentS = new AgentScreen(guiPush, resEditCenter, passwordp, userp);
         }
     }
-
-    
 }
