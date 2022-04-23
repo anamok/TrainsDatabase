@@ -201,7 +201,7 @@ CREATE OR REPLACE VIEW count_pass AS
 CREATE OR REPLACE VIEW routes_with_stops_percentage AS
     SELECT * FROM count_pass NATURAL JOIN count_stop;
 
-DROP TABLE pass_and_stop_for_routes;
+DROP TABLE IF EXISTS pass_and_stop_for_routes;
 CREATE TABLE pass_and_stop_for_routes (
     route_id INTEGER,
     pass INTEGER,
