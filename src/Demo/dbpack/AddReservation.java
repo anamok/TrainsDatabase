@@ -285,6 +285,7 @@ public class AddReservation extends JFrame implements ActionListener {
         }
     }
 
+
     public void actionPerformed(ActionEvent e)  {
         Object source = e.getSource();
 
@@ -320,7 +321,6 @@ public class AddReservation extends JFrame implements ActionListener {
             } catch (SQLException res) {
                 System.out.println(res);
             }
-
             trainNumber.setText(returnedID);
 
             StringBuilder priceSB = new StringBuilder();
@@ -415,7 +415,7 @@ public class AddReservation extends JFrame implements ActionListener {
             }
 
             resInsert.append("INSERT INTO Reservations (customer_id, price, balance, route_num, day, time, train, no_adjust, start_station, end_station) VALUES ('");
-            resInsert.append(customer_id.getText() + "', '" + price.getText() + "', '" + Double.toString(remainingBal) + "', '");
+            resInsert.append(customer_id.getText() + "', '" + price.getText() + "', '" + bd.toString() + "', '");
             resInsert.append(route.getText() + "', '" + day.getText() + "' , '" + time.getText() + "' , '" + trainNumber.getText() + "' , '");
             resInsert.append(adjustment.toString() + "' , '" + startA.getText() + "' , '" + endB.getText() + "');");
 
